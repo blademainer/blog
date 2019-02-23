@@ -1,0 +1,35 @@
+{
+  "name": "hexo-site",
+  "version": "0.0.0",
+  "private": true,
+  "hexo": {
+    "version": "3.8.0"
+  },
+  "dependencies": {
+    "eslint": "^5.12.1",
+    "hexo": "^3.8.0",
+    "hexo-all-minifier": "^0.5.3",
+    "hexo-baidu-url-submit": "0.0.6",
+    "hexo-browsersync": "^0.3.0",
+    "hexo-deployer-git": "^1.0.0",
+    "hexo-generator-archive": "^0.1.4",
+    "hexo-generator-baidu-sitemap": "^0.1.6",
+    "hexo-generator-category": "^0.1.2",
+    "hexo-generator-feed": "^1.2.0",
+    "hexo-generator-index": "^0.1.2",
+    "hexo-generator-searchdb": "^1.0.8",
+    "hexo-generator-seo-friendly-sitemap": "0.0.22",
+    "hexo-generator-tag": "^0.1.2",
+    "hexo-related-popular-posts": "^3.0.3",
+    "hexo-renderer-ejs": "^0.1.0",
+    "hexo-renderer-jade": "^0.4.1",
+    "hexo-renderer-marked": "^0.2.4",
+    "hexo-renderer-stylus": "^0.3.0",
+    "hexo-server": "^0.1.2",
+    "hexo-symbols-count-time": "^0.4.4",
+    "hexo-tag-plantuml": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-imagemin": "^3.1.0"
+  }
+}

@@ -1,0 +1,1 @@
+docker run --rm -it -w /app -e LANG="zh_CN.UTF-8" -v `pwd`:/app blademainer/hexo:v1.0.1 npm --registry=https://registry.npm.taobao.org install -g npm-check-updates && npm-check-updates -u && npm --registry=https://registry.npm.taobao.org install
