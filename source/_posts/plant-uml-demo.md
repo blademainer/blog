@@ -8,6 +8,7 @@ tags:
 
 plantuml使用示例
 <!--more-->
+[online editor](http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
 
 {% plantuml %}
 Alice -> Bob: Authentication Request
@@ -654,5 +655,4 @@ WB is Processing
 @300
 WB is Waiting
 {% endplantuml %}
-
 
