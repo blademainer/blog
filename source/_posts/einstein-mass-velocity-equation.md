@@ -9,6 +9,9 @@ tags:
  - einstein
 mathjax: true
 ---
+> $m = \dfrac {m_0} {\sqrt{1 - \dfrac {v^2} {c^2} } }$
+<!-- more -->
+
 # Physical Law
 The mass 𝑚 of a body is not constant.
 
