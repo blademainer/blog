@@ -3,8 +3,6 @@ title:      java分段锁示例
 description: java分段锁最经典的例子是ConcurrentHashMap，我们也来做做实验。
 keywords: java,segment,lock,ReentrantLock,锁,分段锁
 category: java
-top: true
-index: 1
 tag:
  - java
  - segment
