@@ -1,4 +1,14 @@
 [![Build Status](https://travis-ci.org/blademainer/blog.svg)](https://travis-ci.org/blademainer/blog)
+
+# 快速启动
+./server.sh
+
+# 使用镜像启动hexo
+```shell
+docker run --rm -p 4000:4000 -p 3000:3000 -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.2 hexo server
+```
+
+
 # 安装hexo
 利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）
 >npm install -g hexo
@@ -31,4 +41,5 @@
 # 其他
 删除老文件
 >hexo clean
+
 
