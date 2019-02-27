@@ -9,7 +9,7 @@ tags:
  - einstein
 mathjax: true
 ---
-> $\mathbf F = \dfrac {m_0 \mathbf a} {\left({1 - \dfrac{v^2}{c^2}}\right)^{\tfrac 3 2}}$
+> $$\mathbf F = \dfrac {m_0 \mathbf a} {\left({1 - \dfrac{v^2}{c^2}}\right)^{\tfrac 3 2}}$$
 
 <!-- more -->
 
