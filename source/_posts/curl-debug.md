@@ -24,7 +24,7 @@ time_redirect: %{time_redirect}\n
 time_pretransfer: %{time_pretransfer}\n
 time_starttransfer: %{time_starttransfer}\n
 ----------\n
-time_total: %{time_total}\n
+time_total: %{time_total}\n\n
 EOF
 
 DOMAIN="api2.mch.weixin.qq.com"
