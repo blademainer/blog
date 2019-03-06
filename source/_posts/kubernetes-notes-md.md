@@ -29,8 +29,11 @@ kubectl get secret gitlab-registry --namespace=revsys-com --export -o yaml |\
    kubectl apply --namespace=devspectrum-dev -f -
 ```
 # 临时运行一个pod
+- `--restart=Never`代表起一个pod
+- `--rm`在终端退出时删除pod
+
 ```bash
-kubectl run -it busybox --image sequenceiq/busybox --restart=Never
+kubectl run --rm -it busybox --image sequenceiq/busybox --restart=Never
 ```
 
 # Scratch Debugger
