@@ -28,6 +28,10 @@ kubectl patch deployment [deploy] --patch '{"spec": {"template": {"metadata": {"
 kubectl get secret gitlab-registry --namespace=revsys-com --export -o yaml |\
    kubectl apply --namespace=devspectrum-dev -f -
 ```
+# 临时运行一个pod
+```bash
+kubectl run -it busybox --image sequenceiq/busybox --restart=Never
+```
 
 # Scratch Debugger
 
