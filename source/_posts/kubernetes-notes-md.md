@@ -20,7 +20,7 @@ done
 # 热更新deploy
 有时候我们修改了ConfigMap，但是代码不支持，肯定不能让程序停止，因此必须支持热更新。命令如下：
 ```bash
-kubectl patch deployment [deploy] --patch '{"spec": {"template": {"metadata": {"annotations": {"version/config": "[date]" }}}}}'
+kubectl patch deployment [deploy] --patch '{"spec": {"template": {"metadata": {"annotations": {"version/config": "`date +%Y%m%d%H%M%S`" }}}}}'
 ```
 
 # 拷贝secrets到其他namespace
