@@ -17,15 +17,15 @@ tags:
 
 ```bash
 tee curl-format.txt <<- 'EOF'
-> time_namelookup: %{time_namelookup}\n
-> time_connect: %{time_connect}\n
-> time_appconnect: %{time_appconnect}\n
-> time_redirect: %{time_redirect}\n
-> time_pretransfer: %{time_pretransfer}\n
-> time_starttransfer: %{time_starttransfer}\n
-> ----------\n
-> time_total: %{time_total}\n
-> EOF
+time_namelookup: %{time_namelookup}\n
+time_connect: %{time_connect}\n
+time_appconnect: %{time_appconnect}\n
+time_redirect: %{time_redirect}\n
+time_pretransfer: %{time_pretransfer}\n
+time_starttransfer: %{time_starttransfer}\n
+----------\n
+time_total: %{time_total}\n
+EOF
 
 DOMAIN="www.baidu.com"
 curl -w 'time_connect %{time_connect}\ntime_starttransfer %{time_starttransfer}\ntime_total %{time_total}\n' $DOMAIN
