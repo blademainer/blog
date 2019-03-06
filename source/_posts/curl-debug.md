@@ -27,7 +27,7 @@ time_starttransfer: %{time_starttransfer}\n
 time_total: %{time_total}\n
 EOF
 
-DOMAIN="www.baidu.com"
+DOMAIN="api2.mch.weixin.qq.com"
 curl -w '@curl-format.txt' $DOMAIN
 ```
 
