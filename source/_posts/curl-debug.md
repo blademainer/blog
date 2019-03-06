@@ -28,6 +28,6 @@ time_total: %{time_total}\n
 EOF
 
 DOMAIN="www.baidu.com"
-curl -w 'time_connect %{time_connect}\ntime_starttransfer %{time_starttransfer}\ntime_total %{time_total}\n' $DOMAIN
+curl -w '@curl-format.txt' $DOMAIN
 ```
 
