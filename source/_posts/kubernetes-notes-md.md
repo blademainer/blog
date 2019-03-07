@@ -36,6 +36,31 @@ kubectl get secret gitlab-registry --namespace=revsys-com --export -o yaml |\
 kubectl run --rm -it busybox --image sequenceiq/busybox --restart=Never
 ```
 
+# 获取pod信息
+```bash
+      env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: MY_POD_SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+```
+
 # Scratch Debugger
 
 This is a tool to make debugging containers based on scratch easier. The script
@@ -46,7 +71,7 @@ complete, the target can be debugged through a standard kubectl exec.
 
 ## Usage
 
-```
+```bash
 curl https://raw.githubusercontent.com/kubernetes/contrib/master/scratch-debugger/debug.sh | sh -c -- POD_NAME [POD_NAMESPACE CONTAINER_NAME]
 ```
 
@@ -66,7 +91,7 @@ Additionally, the following environment variables can be set:
 ## Example
 
 Create a simple `pause` pod, which is based off a scratch image and does nothing.
-```
+```bash
 $ kubectl create -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -83,14 +108,14 @@ pod "pause" created
 
 Note that we cannot simply exec into the pod, since there isn't a shell or any
 other interactive tools available:
-```
+```bash
 $ kubectl exec -i -t pause -- sh
 rpc error: code = 2 desc = "oci runtime error: exec failed: exec: \"sh\": executable file not found in $PATH"
 ```
 
 So we use the `debug.sh` script to copy busybox (which includes many common
 tools) into the container:
-```
+```bash
 $ scratch-debugger/debug.sh pause
 Debug Target Container:
   Pod:          pause
@@ -121,7 +146,7 @@ The script automatically execs into the pod and starts a shell (`ash`) with the
 still present in the pod, and we can simply exec back in using the command the
 script gave us:
 
-```
+```bash
 $ kubectl exec -i -t pause -- /tmp/debug-tools/sh -c 'PATH=$PATH:/tmp/debug-tools sh'
 / # which sh
 /tmp/debug-tools/sh
@@ -129,7 +154,7 @@ $ kubectl exec -i -t pause -- /tmp/debug-tools/sh -c 'PATH=$PATH:/tmp/debug-tool
 ```
 
 Alternatively, we can just call the `debug.sh` script again:
-```
+```bash
 $ scratch-debugger/debug.sh pause
 Debug tools already installed. Dumping you into the pod container now.
 / # exit
@@ -138,7 +163,7 @@ Debug tools already installed. Dumping you into the pod container now.
 Once we've finished debugging, it's a good practice to delete the "tainted"
 pod. If that is undesirable for some reason, you can simply delete the tools
 from the container:
-```
+```bash
 $ kubectl exec pause -- /tmp/debug-tools/rm -r /tmp/debug-tools
 ```
 
