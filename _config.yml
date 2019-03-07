@@ -172,3 +172,13 @@ deploy:
     vps: ssh://git@ssh.xiongyingqi.com:122/home/git/blog.git,master
     coding: git@git.coding.net:blademainer/blademainer.git,master
 - type: baidu_url_submitter
+
+
+admin:
+  username: admin
+  # bcrypt:
+  # htpasswd -bnBC 10 "" password | tr -d ':\n' | sed 's/$2y/$2a/'
+  # https://www.browserling.com/tools/bcrypt
+  password_hash: $2a$10$ij5k2oK0jscW./Kz1sDf7.vI9oNfR/AQB7HRHrBN4S1wA3BhLDWgO 
+  secret: bJzJGPqfcCYD2tL4f04KYQm3IFTt1j0MsOrFHliuRjMCTuNeSOkBKYAaOSH0zJ7W28sSE9itNkbNTdHjtM8n25BJroXST17ntjjU
+  deployCommand: ./git_push.sh

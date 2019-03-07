@@ -8,6 +8,7 @@
   "dependencies": {
     "eslint": "^5.12.1",
     "hexo": "^3.8.0",
+    "hexo-admin": "^2.3.0",
     "hexo-all-minifier": "^0.5.3",
     "hexo-baidu-url-submit": "0.0.6",
     "hexo-browsersync": "^0.3.0",
