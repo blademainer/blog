@@ -75,6 +75,7 @@ kubectl -n kube-system logs -l k8s-app=kube-dns
 # 参考
 - [go-http-issues](https://github.com/golang/go/issues/16094)
 - [proposal-go-dns-cache](https://github.com/golang/go/issues/24796)
+- [go-dns-cache](https://stackoverflow.com/questions/40251727/does-go-cache-dns-lookups)
 - [CoreDNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [kube-dns](https://kubernetes.io/zh/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [use-curl-to-analyze-request](http://cizixs.com/2017/04/11/use-curl-to-analyze-request/)
