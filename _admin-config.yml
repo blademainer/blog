@@ -1,4 +1,5 @@
 options:
   lineNumbers: true
+  askImageFilename: false
 editor:
   lineNumbers: true
