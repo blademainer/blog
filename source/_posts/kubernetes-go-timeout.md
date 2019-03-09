@@ -74,5 +74,6 @@ kubectl -n kube-system logs -l k8s-app=kube-dns
 2. kubernetes基础组件的配置变更要细致，且做好监控。
 
 # 参考
+- [go-http-issues](https://github.com/golang/go/issues/16094)
 - [CoreDNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [use-curl-to-analyze-request](http://cizixs.com/2017/04/11/use-curl-to-analyze-request/)
