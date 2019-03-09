@@ -16,7 +16,6 @@ categories:
 author: blademainer
 date: 2019-03-10 01:57:00
 ---
-
 ![upload successful](/images/pasted-5.png)
 > 一次kubernetes内的pod（go程序）连接外网域名偶发超时问题。
 <!-- more -->
@@ -77,4 +76,5 @@ kubectl -n kube-system logs -l k8s-app=kube-dns
 - [go-http-issues](https://github.com/golang/go/issues/16094)
 - [proposal-go-dns-cache](https://github.com/golang/go/issues/24796)
 - [CoreDNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
+- [kube-dns](https://kubernetes.io/zh/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [use-curl-to-analyze-request](http://cizixs.com/2017/04/11/use-curl-to-analyze-request/)
