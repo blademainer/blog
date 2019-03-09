@@ -16,6 +16,8 @@ categories:
 author: blademainer
 date: 2019-03-10 01:57:00
 ---
+
+![upload successful](/images/pasted-5.png)
 > 一次kubernetes内的pod（go程序）连接外网域名偶发超时问题。
 <!-- more -->
 
