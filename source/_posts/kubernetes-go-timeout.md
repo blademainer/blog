@@ -1,5 +1,18 @@
 title: kubernetes-go-timeout
-date: 2019-03-10 01:57:17
+tags:
+  - kubernetes
+  - go
+  - timeout
+  - dns
+  - kube-dns
+  - coredns
+  - curl
+  - httpclient
+  - awaiting headers
+categories:
+  - kubernetes
+author: blademainer
+date: 2019-03-10 01:57:00
 ---
 > 一次kubernetes内的pod（go程序）连接外网域名偶发超时问题。
 <!-- more -->
