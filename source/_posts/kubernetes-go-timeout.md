@@ -19,7 +19,7 @@ date: 2019-03-10 01:57:00
 
 # 问题
 
-某天，线上有个机房突然出现超时预警，原因是零星的报微信、支付宝连接超时。刚开始以为是机房的网络故障，就没有深究。
+最近线上有个机房突然出现超时预警，原因是零星的报微信、支付宝连接超时。刚开始以为是机房的网络故障，就没有深究。
 
 过去一天，现象还是继续。没办法，大概率不是机房问题，需要深入解决。
 
@@ -72,4 +72,3 @@ kubectl -n kube-system logs -l k8s-app=kube-dns
 # 参考
 - [CoreDNS](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/)
 - [use-curl-to-analyze-request](http://cizixs.com/2017/04/11/use-curl-to-analyze-request/)
-

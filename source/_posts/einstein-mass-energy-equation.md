@@ -1,16 +1,16 @@
-title: Einstein's Mass-Energy Equation 
-date: 2019-02-24 14:15:35
+title: Einstein's Mass-Energy Equation
 category: physical
-tags: 
- - physical
- - "energy equation"
- - energy
- - equation
- - einstein
+tags:
+  - physical
+  - energy equation
+  - energy
+  - equation
+  - einstein
 mathjax: true
-top: true 
+top: true
+date: 2019-02-24 14:15:35
 ---
-
+![upload successful](/images/pasted-4.png)
 > $$e=mc^2$$
 
 <!-- more -->
@@ -63,4 +63,3 @@ $$   = M c^2$$
 # Sources
 - 1972: [George F. Simmons](https://proofwiki.org/wiki/Mathematician:George_F._Simmons): [Differential Equations](https://proofwiki.org/wiki/Book:George_F._Simmons/Differential_Equations) ... ([previous](https://proofwiki.org/wiki/Definition:Burnout_Height)) ... ([next](https://proofwiki.org/wiki/Einstein%27s_Mass-Energy_Equation)): Miscellaneous Problems for Chapter 2: Problem 32
 - 1992: [George F. Simmons](https://proofwiki.org/wiki/Mathematician:George_F._Simmons): [Calculus Gems](https://proofwiki.org/wiki/Book:George_F._Simmons/Calculus_Gems) ... ([previous](https://proofwiki.org/wiki/Definition:Linear_Momentum)) ... ([next](https://proofwiki.org/wiki/Einstein%27s_Law_of_Motion)): Chapter B.7: A Simple Approach to $E = M c^2$
-
