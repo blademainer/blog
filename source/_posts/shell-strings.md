@@ -1,12 +1,16 @@
 title: shell-strings
-date: 2019-01-31 07:05:37
 category: shell
-tags: 
+tags:
   - shell
   - strings
   - substring
+  - linux
+  - mac
+categories:
+  - shell
+author: blademainer
+date: 2019-01-31 07:05:00
 ---
-
 在做shell批处理程序时候，经常会涉及到字符串相关操作。有很多命令语句，如：awk,sed都可以做字符串各种操作。 其实shell内置一系列操作符号，可以达到类似效果，大家知道，使用内部操作符会省略启动外部程序等时间，因此速度会非常的快。
 
 <!-- more -->
@@ -119,8 +123,16 @@ echo ${string#c*3}     //abc12342341  这样什么也没有匹配到
 echo ${string#*c1*3}   //42341  从$string左边开始，去掉最短匹配子串    
 echo ${string##a*3}    //41     从$string左边开始，去掉最长匹配子串    
 echo ${string%3*1}     //abc12342  从$string右边开始，去掉最短匹配子串    
-echo ${string%%3*1}    //abc12     从$string右边开始，去掉最长匹配子串    
+echo ${string%%3*1}    //abc12     从$string右边开始，去掉最长匹配子串
 ```
+
+获取文件名
+```shell
+url="https://dl.google.com/go/go1.12.darwin-amd64.tar.gz"
+echo ${url:##*/}  // go1.12.darwin-amd64.tar.gz
+echo ${url%/*}    // https://dl.google.com/go
+```
+
 
 ```shell  
 str="abbc,def,ghi,abcjkl"  
@@ -203,6 +215,3 @@ $ echo ${test%%/*}
 #${变量名%substring正则表达式}从字符串结尾开始配备substring,删除匹配上的表达式。 
 #注意：${test##*/},${test%/*} 分别是得到文件名，或者目录地址最简单方法。   
 ```
-
-
-
