@@ -12,8 +12,7 @@ date: 2019-03-11 23:16:00
 ---
 # X-Sync 星客云盘
 
-
-![upload successful](/images/pasted-9.png)
+![upload successful](/images/pasted-10.png)
 
 <!-- more -->
 
