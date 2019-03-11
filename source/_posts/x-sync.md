@@ -10,7 +10,7 @@ categories:
   - app
 date: 2019-03-11 23:16:00
 ---
-# 星客云盘
+# X-Sync 星客云盘
 
 {% plantuml %}
 
