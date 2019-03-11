@@ -12,6 +12,11 @@ date: 2019-03-11 23:16:00
 ---
 # X-Sync 星客云盘
 
+
+![upload successful](/images/pasted-9.png)
+
+<!-- more -->
+
 {% plantuml %}
 
 node pc1
