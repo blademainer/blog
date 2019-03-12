@@ -10,7 +10,7 @@ categories:
   - app
 date: 2019-03-11 23:16:00
 ---
-# X-Sync 星客云盘
+# SyncCloud 星客云盘
 
 > 打造一个开源、简单、分布式的私人云盘。
 
