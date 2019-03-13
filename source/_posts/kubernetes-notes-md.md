@@ -72,7 +72,7 @@ complete, the target can be debugged through a standard kubectl exec.
 ## Usage
 
 ```bash
-curl https://raw.githubusercontent.com/kubernetes/contrib/master/scratch-debugger/debug.sh | sh -c -- POD_NAME [POD_NAMESPACE CONTAINER_NAME]
+curl https://raw.githubusercontent.com/kubernetes/contrib/master/scratch-debugger/debug.sh | sh -s -- POD_NAME [POD_NAMESPACE CONTAINER_NAME]
 ```
 
 - `POD_NAME` - The name of the pod to debug.
