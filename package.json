@@ -23,6 +23,7 @@
     "hexo-generator-searchdb": "^1.0.8",
     "hexo-generator-seo-friendly-sitemap": "0.0.22",
     "hexo-generator-tag": "^0.1.2",
+    "hexo-qiniu-sync": "^1.4.7",
     "hexo-related-popular-posts": "^3.0.3",
     "hexo-renderer-ejs": "^0.1.0",
     "hexo-renderer-jade": "^0.4.1",
