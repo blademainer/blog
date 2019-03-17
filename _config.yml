@@ -203,12 +203,12 @@ qiniu:
   sync: true
   bucket: hexo 
 #  secret_file: sec/qn.json or C:
-  access_key: {{QINIU_ACCESS_KEY}}
-  secret_key: {{QINIU_SECRET_KEY}}
+  access_key: jSFPGm2_AOVoM2AzkW3k3kvEtSD95dBGaoo2nkGO
+  secret_key: qlyiTa_fcGaiwLaFiMlRxyMDmYaElK4_JL1bT8yt
   dirPrefix: static
   urlPrefix: http://cdn.xiongyingqi.com/static
   up_host: http://up.qiniup.com
-  local_dir: static
+  local_dir: public
   update_exist: true
   image: 
     folder: images 
