@@ -19,6 +19,7 @@ script:
 - sed -i "s/{{QINIU_ACCESS_KEY}}/${QINIU_ACCESS_KEY}/g" ./_config.yml
 - sed -i "s/{{QINIU_SECRET_KEY}}/${QINIU_SECRET_KEY}/g" ./_config.yml
 - hexo generate
+- hexo qiniu sync
 after_script:
 - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
