@@ -208,7 +208,7 @@ qiniu:
   dirPrefix: static
   urlPrefix: http://cdn.xiongyingqi.com/static
   up_host: http://up.qiniup.com
-  local_dir: static
+  local_dir: ./
   update_exist: true
   image: 
     folder: images 
