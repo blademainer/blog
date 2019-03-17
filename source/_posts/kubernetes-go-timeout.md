@@ -16,7 +16,7 @@ categories:
 author: blademainer
 date: 2019-03-10 01:57:00
 ---
-![upload successful](/images/pasted-5.png)
+{% qnimg pasted-5.png }
 > 一次kubernetes内的pod（go程序）连接外网域名偶发超时问题。
 <!-- more -->
 
@@ -53,7 +53,7 @@ DOMAIN="api2.mch.weixin.qq.com"
 curl -w '@curl-format.txt' $DOMAIN
 ```
 发现curl也会偶尔连接超时
-![upload successful](/images/pasted-1.png)
+{% qnimg pasted-1.png }
 
 于是可以确认是dns解析的问题，给应用pod配上host之后问题也得到改善。
 
@@ -62,7 +62,7 @@ curl -w '@curl-format.txt' $DOMAIN
 kubectl -n kube-system logs -l k8s-app=kube-dns
 ```
 存在有比较多的异常，都是连接相同一个IP：`xx.xx.xx.6`连接超时
-![upload successful](/images/pasted-3.png)
+{% qnimg pasted-3.png }
 咨询过运维之后发现，该IP：`xx.xx.xx.6`是一个错误配置，该IP实际是不存在的。
 
 # 修复

@@ -302,7 +302,7 @@ public final class Main{
 
 单例对象的调用方式如下图所示：
 
-![](/images/post/scala-invoke-tree.png)
+{% qnimg post/scala-invoke-tree.png %}
 
 
 # 解决问题
