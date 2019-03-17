@@ -205,10 +205,10 @@ qiniu:
 #  secret_file: sec/qn.json or C:
   access_key: {{QINIU_ACCESS_KEY}}
   secret_key: {{QINIU_SECRET_KEY}}
-  dirPrefix: public
+  dirPrefix: static
   urlPrefix: http://cdn.xiongyingqi.com/static
   up_host: http://up.qiniup.com
-  local_dir: static
+  local_dir: public
   update_exist: true
   image: 
     folder: images 
