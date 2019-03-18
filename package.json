@@ -29,7 +29,7 @@
     "hexo-renderer-jade": "^0.4.1",
     "hexo-renderer-marked": "^0.3.2",
     "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2",
+    "hexo-server": "^0.2.0",
     "hexo-symbols-count-time": "^0.4.4",
     "hexo-tag-plantuml": "^1.0.0"
   },
