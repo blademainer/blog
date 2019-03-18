@@ -1,18 +1,18 @@
 title: In Search of an Understandable Consensus Algorithm (Extended Version)
 author: blademainer
-date: 2019-03-17 19:10:53
 tags:
- - raft
- - consensus
- - algorithm
- - translate
+  - raft
+  - consensus
+  - algorithm
+  - translate
+date: 2019-03-17 19:10:53
 ---
-
 > Raft一致性算法论文(in search of an understandable consensus algorithm)
 
 {% qnimg pasted-11.png %}
 
 <!-- more -->
+
 
 # 寻找一种易于理解的一致性算法（扩展版）
 
