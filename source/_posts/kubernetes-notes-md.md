@@ -29,12 +29,16 @@ kubectl get secret gitlab-registry --namespace=revsys-com --export -o yaml |\
    kubectl apply --namespace=devspectrum-dev -f -
 ```
 # 临时运行一个pod
-- `--restart=Never`代表起一个pod
-- `--rm`在终端退出时删除pod
+- `--restart=Never` 代表起一个pod
+- `--rm` 在终端退出时删除pod
+- `-l` 给pod打label
 
 ```bash
 kubectl run --rm -it busybox --image sequenceiq/busybox --restart=Never
+kubectl run --rm -it mysql-client --image=mysql -l "net=grant-db" --restart=Never bash
 ```
+
+
 
 # 获取pod信息
 ```bash
