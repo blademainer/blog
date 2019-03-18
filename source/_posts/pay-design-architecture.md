@@ -8,7 +8,7 @@ category: pay
 date: 2019-02-06 14:54:04
 ---
 
-![upload successful](/images/pasted-8.png)
+{% qnimg pasted-8.png %}
 
 > 本文介绍核心支付系统的主要功能和组件。
 

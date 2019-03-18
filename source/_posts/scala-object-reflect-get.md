@@ -14,8 +14,8 @@ tags:
 google之后，在一篇博客：http://blog.csdn.net/zhangjg_blog/article/details/23376465 其中有一个例子：
 ```scala
 object  Test {
-	val a = "a string";
-	def printString = println(a)
+  val a = "a string";
+  def printString = println(a)
 }
 ```
 编译之后可以看到有两个class文件：
@@ -67,13 +67,13 @@ public final class Test
 public final class Test{
 
 
-	public static java.lang.String a(){
-		return Test$.MODULE$.a()
-	}
+  public static java.lang.String a(){
+    return Test$.MODULE$.a()
+  }
 	
-	public static void printString(){
-		Test$.MODULE$.printString()
-	}
+  public static void printString(){
+    Test$.MODULE$.printString()
+  }
 }
 ```
 下面再看Test类的虚构类Test$的javap反编译结果：
@@ -291,9 +291,9 @@ public final class Main${
 而Main.class用java代码表示如下：
 ```java
 public final class Main{
-	public static void main(String[] args){
-		Main$.MODULE$.main(args);
-	}
+  public static void main(String[] args){
+    Main$.MODULE$.main(args);
+  }
 }
 ```
 
@@ -302,7 +302,7 @@ public final class Main{
 
 单例对象的调用方式如下图所示：
 
-![](/images/post/scala-invoke-tree.png)
+{% qnimg post/scala-invoke-tree.png %}
 
 
 # 解决问题

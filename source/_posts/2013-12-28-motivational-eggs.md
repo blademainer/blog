@@ -10,4 +10,4 @@ date: 2013-12-28
 ---
 # 励志的鸡蛋
 <!--more-->
-<img src="/images/post/motivational_eggs.jpg">
+{% qnimg  post/motivational_eggs.jpg %}

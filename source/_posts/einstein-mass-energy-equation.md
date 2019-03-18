@@ -8,9 +8,10 @@ tags:
   - einstein
 mathjax: true
 top: true
+index: 1
 date: 2019-02-24 14:15:35
 ---
-![upload successful](/images/pasted-4.png)
+{% qnimg pasted-4.png %}
 > $$e=mc^2$$
 
 <!-- more -->
