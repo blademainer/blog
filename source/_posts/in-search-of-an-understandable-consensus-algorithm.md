@@ -5,7 +5,10 @@ tags:
   - consensus
   - algorithm
   - translate
-date: 2019-03-17 19:10:53
+categories:
+  - algorithm
+  - distributed
+date: 2019-03-17 19:10:00
 ---
 > Raft一致性算法论文(in search of an understandable consensus algorithm)
 
