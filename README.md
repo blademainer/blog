@@ -43,3 +43,5 @@ docker run --rm -p 4000:4000 -p 3000:3000 -it -w /app -v `pwd`:/app blademainer/
 >hexo clean
 
 
+# 使用travis部署
+https://docs.travis-ci.com/user/private-dependencies/
