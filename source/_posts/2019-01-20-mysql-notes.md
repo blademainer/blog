@@ -1,5 +1,8 @@
-{}
-date: 2019-04-03 21:22:45
+title: MySQL笔记
+tags:
+  - mysql
+  - note
+date: 2019-01-20 19:00:00
 ---
 这里收藏工作中用到的脚本，也为了防止做重复的搜索工作，同时分享给大家。
 
@@ -39,6 +42,7 @@ done
 
 ## 批量导出数据库（除了系统库）
 ```shell
-candidates=$(echo "show databases" | mysql | grep -Ev "^(Database|mysql|performance_schema|information_schema)$")
-mysqldump --databases $candidates 
+echo "show databases" | mysql | grep -Ev "^(Database|mysql|performance_schema|information_schema)$" > databases
+cat databases | while read db; do mysqldump --databases $db >> payproxy.sql; done
+rm databases
 ```
