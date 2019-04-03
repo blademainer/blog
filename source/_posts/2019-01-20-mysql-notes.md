@@ -1,8 +1,5 @@
-title: MySQL笔记
-date: 2019-01-20 19:00:00
-tags:
- - mysql
- - note
+{}
+date: 2019-04-03 21:22:45
 ---
 这里收藏工作中用到的脚本，也为了防止做重复的搜索工作，同时分享给大家。
 
@@ -38,4 +35,10 @@ echo "select CONCAT(TABLE_SCHEMA, '.', TABLE_NAME)  FROM INFORMATION_SCHEMA.TABL
 cat tables.tmp | while read table; do
   echo "alter table $table AUTO_INCREMENT=$INCREMENT" | mysql -h ${HOST} -u${USER} -p${PASS};
 done
+```
+
+## 批量导出数据库（除了系统库）
+```shell
+candidates=$(echo "show databases" | mysql | grep -Ev "^(Database|mysql|performance_schema|information_schema)$")
+mysqldump --databases $candidates 
 ```
