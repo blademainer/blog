@@ -43,6 +43,6 @@ done
 ## 批量导出数据库（除了系统库）
 ```shell
 echo "show databases" | mysql | grep -Ev "^(Database|mysql|performance_schema|information_schema)$" > databases
-cat databases | while read db; do mysqldump --databases $db >> payproxy.sql; done
+cat databases | while read db; do mysqldump --complete-insert --single-transaction --skip-opt --extended-insert --disable-keys --create-options --default-character-set=utf8 --quick --set-gtid-purged=OFF --databases $db >> payproxy.sql; done
 rm databases
 ```
