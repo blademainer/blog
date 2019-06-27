@@ -21,7 +21,8 @@ tags:
 <!-- more -->
 # 使用方法
 将`gcr.io/google_containers/$repo`替换为`googlecontainer/$repo`，例如需要使用`gcr.io/google_containers/kubernetes-dashboard-amd64`镜像，则使用`googlecontainer/kubernetes-dashboard-amd64`即可。
-> docker pull googlecontainer/kubernetes-dashboard-amd64
+> docker pull googlecontainer/kubernetes-dashboard-amd64 # for docker
+> kubeadm init --image-repository googlecontainer # for kubernetes
 
 # 原理
 travis-ci安装[gcloud](https://cloud.google.com/solutions/continuous-delivery-with-travis-ci)并授权，然后利用travis-ci的网络来拉取google_containers镜像，并将镜像push到docker仓库。每天定时出发travis来拉取google_containers的更新。
