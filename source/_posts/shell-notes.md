@@ -77,6 +77,19 @@ $ STAMP=$(($(date +%s -d "$(date +'%Y-%m-%d %H:%M:%S')"))) # 1473245414
 $ TEN_DAYS_AGO=$(($(date -d '-10 day' "+%Y%m%d%H%M%S"))) #20160828185138
 ```
 
+- 计算指定日期的前一天
+```shel
+date -d "2019-05-20 -1 day" +"%Y%m%d"
+```
+
+- 获取指定日期的季度
+```shell
+SEASON=`echo "${today}" | awk -F "-" '{print $2}'| awk '{season_least=$1%3} {season=$1/3} {if(season_least>0) season+=1} {printf("%d\n",season)}'`
+YEAR=`echo "${today}" | awk -F "-" '{print $1}'`
+YEAR_SEASON="${YEAR}Q${SEASON}"
+echo "YEAR_SEASON=${YEAR_SEASON}"
+```
+
 - 获取xxxx年xx月的天数
 ```shell
 # 获取 2016-10 的天数
