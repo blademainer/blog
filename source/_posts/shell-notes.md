@@ -562,10 +562,17 @@ cat file | awk 'NR>2{print p}{p=$0}'
 ```
 
 # 批量导出db数据
+```shell
 for y in `seq 2015 2025`; do
   for m in `seq 1 12`; do
     db=`echo gateway$y``printf "%02d" $m`;
     mysqldump -uroot -ppass -hhost -d $db --lock-tables=false  >> gateway.sql;
   done
 done
+```
 
+# 获取被执行脚本所在路径
+```shell
+cur_script_dir="`cd $(dirname $0) && pwd`"
+echo $cur_script_dir
+```
