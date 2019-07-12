@@ -581,3 +581,7 @@ echo $cur_script_dir
 ```shell
 awk '{ $1=""; print $0 }' ur_file
 ```
+另外， 如果我要打印某列以后的所有列的，  可以使用循环把， 把前N列都赋值为空：
+```shell
+awk '{ for(i=1; i<=2; i++){ $i="" }; print $0 }' urfile
+```
