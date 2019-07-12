@@ -576,3 +576,8 @@ done
 cur_script_dir="`cd $(dirname $0) && pwd`"
 echo $cur_script_dir
 ```
+
+# awk获取第1行之后的列
+```shell
+awk '{ $1=""; print $0 }' ur_file
+```
