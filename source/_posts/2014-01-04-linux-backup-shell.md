@@ -73,43 +73,43 @@ TIME_AGO=$(($TIME_NOW - $SECONDS_OF_DAYS_AGO))
 #判断传入的日期是否在设置的日期之前
 function isDaysBefore()
 {
-	DATE=$(($(date +%s -d $1)))
-	if [[ $DATE < $TIME_AGO ]] 
-	then
-		echo 1
-	else
-		echo 0
-	fi
+  DATE=$(($(date +%s -d $1)))
+  if [[ $DATE < $TIME_AGO ]] 
+  then
+    echo 1
+  else
+    echo 0
+  fi
 }
 
 #检验文件夹
 if [ ! -d "$DES_FOLDER" ]; then  
-	echo `mkdir $DES_FOLDER`
+  echo `mkdir $DES_FOLDER`
 fi
 
 DES_PATH=$DES_FOLDER/$NOW/
 if [ ! -d "$DES_PATH" ]; then  
-	echo `mkdir $DES_PATH`
+  echo `mkdir $DES_PATH`
 fi
 
 if [ ! -f "$DES_FOLDER/$NOW/$NOW.log" ]; then  
-	echo `touch $DES_FOLDER/$NOW/$NOW.log`
+  echo `touch $DES_FOLDER/$NOW/$NOW.log`
 fi
 
 #拷贝文件夹
 var=`echo "$ORIGIN_FOLDER"|awk -F ',' '{print $0}' | sed "s/,/ /g"`
 for VAR_ORIGIN_FOLDER in $var; do
-	command=`cp -rf $VAR_ORIGIN_FOLDER $DES_PATH`
+  command=`cp -rf $VAR_ORIGIN_FOLDER $DES_PATH`
 done
 
 
 #删除备份文件夹
 for FOLDER in `ls $DES_FOLDER`; do
-	#截取年月日
-	folder_date=`expr substr $FOLDER 1 10`
-	if [[ $(isDaysBefore $folder_date) == 1 ]]
-	then
-		echo `rm -fr $DES_FOLDER/$FOLDER`
-	fi
+  #截取年月日
+  folder_date=`expr substr $FOLDER 1 10`
+  if [[ $(isDaysBefore $folder_date) == 1 ]]
+  then
+    echo `rm -fr $DES_FOLDER/$FOLDER`
+  fi
 done
 ```

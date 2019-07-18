@@ -20,7 +20,7 @@ done
 # 热更新deploy
 有时候我们修改了ConfigMap，但是代码不支持，肯定不能让程序停止，因此必须支持热更新。命令如下：
 ```bash
-kubectl patch deployment [deploy] --patch '{"spec": {"template": {"metadata": {"annotations": {"version/config": "`date +%Y%m%d%H%M%S`" }}}}}'
+kubectl patch deployment [deploy] --patch '{"spec": {"template": {"metadata": {"annotations": {"version/config": "'`date +%Y%m%d%H%M%S`'" }}}}}'
 ```
 
 # 拷贝secrets到其他namespace
@@ -29,12 +29,16 @@ kubectl get secret gitlab-registry --namespace=revsys-com --export -o yaml |\
    kubectl apply --namespace=devspectrum-dev -f -
 ```
 # 临时运行一个pod
-- `--restart=Never`代表起一个pod
-- `--rm`在终端退出时删除pod
+- `--restart=Never` 代表起一个pod
+- `--rm` 在终端退出时删除pod
+- `-l` 给pod打label
 
 ```bash
 kubectl run --rm -it busybox --image sequenceiq/busybox --restart=Never
+kubectl run --rm -it mysql-client --image=mysql -l "net=grant-db" --restart=Never bash
 ```
+
+
 
 # 获取pod信息
 ```bash
@@ -72,7 +76,7 @@ complete, the target can be debugged through a standard kubectl exec.
 ## Usage
 
 ```bash
-curl https://raw.githubusercontent.com/kubernetes/contrib/master/scratch-debugger/debug.sh | sh -c -- POD_NAME [POD_NAMESPACE CONTAINER_NAME]
+curl https://raw.githubusercontent.com/kubernetes/contrib/master/scratch-debugger/debug.sh | sh -s -- POD_NAME [-n POD_NAMESPACE -c CONTAINER_NAME]
 ```
 
 - `POD_NAME` - The name of the pod to debug.

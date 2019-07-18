@@ -99,7 +99,7 @@ Killed
         }
 ```
 docker直接杀掉了java容器，此时的退出前的java程序不会报任何错误信息也不会打印错误堆栈、调用shutdownHook等。`jvmdump`也不会有dump的文件输出：
-![](/images/post/run-java-in-docker-1.png)
+{% qnimg post/run-java-in-docker-1.png %}
 
 ## 原因分析
 按道理JVM会自动根据当前系统的可用内存来自动分配JVM的内存大小，那么JVM分配的内存应该不大于`64M`，然而我们的java程序输出日志如下：
@@ -119,7 +119,7 @@ docker run --name java-memory-demo --memory-swap=0 --memory-swappiness=0 -m 256m
 > `JAVA_OPTIONS`增加了`-Xmx128m`
 
 JVM正确的打印了异常日志日志、调用了ShutdownHook以及正确的输出了HeapDumpPath
-![](/images/post/run-java-in-docker-2.png)
+{% qnimg post/run-java-in-docker-2.png %}
 
 ## 使用可以识别`cgroup`限制的`JVM`
 - [jdk9](http://hg.openjdk.java.net/jdk9/jdk9/hotspot/rev/5f1d1df0ea49)

@@ -10,11 +10,16 @@ branches:
   - master
 before_install:
 - npm install -g hexo-cli
+- sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
+- sed -i "s/{{baidu_token}}/${BAIDU_TOKEN}/g" ./_config.yml
+- sed -i "s/{{QINIU_ACCESS_KEY}}/${QINIU_ACCESS_KEY}/g" ./_config.yml
+- sed -i "s/{{QINIU_SECRET_KEY}}/${QINIU_SECRET_KEY}/g" ./_config.yml
 install:
 - npm install
 - npm install hexo-deployer-git --save
 script:
 - hexo generate
+- hexo qiniu sync
 after_script:
 - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
@@ -24,10 +29,10 @@ after_script:
 - cp .travis/ssh_config ~/.ssh/config
 - git config user.name "blademainer"
 - git config user.email "blademainer@gmail.com"
-- sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
-- sed -i "s/{{baidu_token}}/${BAIDU_TOKEN}/g" ./_config.yml
 - hexo deploy
 env:
   global:
   - secure: ee84BM562T/0QMRE2Zf9nJocHQwrFRpUjUC+tcPe3Rcmz+/LKt72phRhxoRuStHtuE7EvzvMQPlkeWkMqjw5vQPWwnWbhsNuvT8cUmuWJhjQCTJKBbviVv/SUBvo2niBS9XGYVMG51HortYC89DqKDAi+Q4kBftU7CEEzgNLgB1jkjMSvGxMYEbT0i7RpZo8qQ+ijjr+CYf6yxonFxCUJrqdBvanbkRdUifQvxXL1ao3tz9OkqdtrK6iVBpC3J5xhEQn10/ssPlOZTOln8YimHCVQXxw7sTau4LzWUCvmFU+3ATzPtjz+YnSjLalaDOnLGI8srjGRLOgsBK/0voagQ0DZ0FDQLgjxxTbqKtWSSde1JeafsptsorhA2VGwGQrx7JskBgBGKa0j7TcXm3XQzFlDP1hkDVjWTLoUxhcWHVWwoacMAgbLLxY9UYjcMpTCN3Kp/p0ZPqx92bO6DqqG4lydgmQEPO2IyB5IdZP7rQC04+AIpSiUyjBX/8+u2TZVQKw7uHWVRMl+irjer8IaH48rBgbs7280zt2N+N+3kk1+CzdOqAu7uFpSznEVVPvR3LjQbn/mrmaCqW+PcQVXKkc3oaD9cCt4UjKph4qTns38ePrEePUNWNIXuJH4Gp0baOf5WEXCReACbf7zvAkQVeqyQ/jrXD19PzNZGMqzU0=
   - secure: OT9Vrn5lA6MPjr3xR8KvKIKzFdf19+SpfKx4aHJ3pYGbeaTsMC7jl5Lc5PKm5fyqw4UdkQT24dcpvRqax53i0BWk/M7sSZT6WgsjBdup/dmN2s9pg0P9qkHyxwICjOjIdBowLIAspgKJwcSj2o3V+7Ff1gvuIOUfe7N/9ay5OVdpWxr4MMUxFKv+Eba5dSS749f3tq62kfL2M6YJVVRYTZE4oEt8XSiHd10XAiblOiCAKZfOeO2JNFE8TkTpXyQjnHgyrJMSpgbtnhGew+Gl5PSFbOGudout600lqnkh36pTeSNLfn5LLdsTYsEU9qQl91DYl5pBvaY9BA40VDCt5Q174JMmnsAFUbAjQACIDur1sgvhFizIjHOL9DBbN/01r3wVhTfyLQd+iehdbmdQMBBDXVRCkYndzqnwZVDeNJJ1fzctrc859dnZ1GQopPVuIz2Zk5uoXftHvBmyfVYFhQgRS26Wz6UBQkVpIi5YCX3iV69nORT2v3hzwKgxZaKlXp+ljPV5GOOY7R1TgtEuNrf7UHcwbIM6w66fnAZhnRhCa9/JKOdLyfpWf+IrHbAiCcVoOUmL8moxxF2GynIwicQz7PTwWUktJ1ylDuRbyLB45f9d+hy1u72w445Vllgng0VANyY//k9Qm5+8YwEqRtTAZZEheQtSOl7C9GXbDuA=
+  - secure: HtxmjENkAcCo5jt3WW+bkODw+kbMoctfYtxqwd3AFjbV2EOHHNMz2WEgqZM1omOXF9e2En43GkR4kM5ZE7sEiyTUgZVKlfhyS2yUquU/nO4kiOmecTJxlSwv2QA5k0H7+yOOloHkm/9wKEdVjMgOKGuRg8xIbcWr4/EfWoCkHrILfld6DK2J9snOurzOyAmXRmoksx7QkNXs6/V2StiH82K2ezVZ7G3qRSG2TgeGWcj64leS1VKGsnKiKgB38pYXItJjG569CC27/lF/zDAtbZllFxfSeTWZxB8EBGLdArLggRpThqQlsqnmTSJ2fhjyG6b7ErI17EwyCBoFAeQy7Y8/hVTX0xkjWuTjyY41J4zaObuizOInjb1LmOFvCtu1utlNe980YuuNBceSRgi2gcQo8E901BnUY2x1gacw5VK2GDks5fFF0N4mSt+y+b6kGIRmiXRru4JGm4N/0lo0iClWjfGEff8iBaag2U0ieukLqkz1nE5TkiPrsqbvEugBjz9Z8dMx88Vp/rIOE3KVRteVRZKxC2yXMkJg8Qqm6TBbEqg6fl5afjqxMeACg9cNgog0Yd+zTQMaCplIOnBhDJ6na4Un1LelQnKg+Z3ER3AN86aLVRrH8wcUmBtjleNFIQuhn9UJt9B6MUHsOTh17HgQoVV+eTRVUFL+5nv17EE=
+  - secure: VVi3F3VzDbQ+jdVrs69Zom6ZOvZPeqTw/aF3k3AtfA8jSjU9Q3Js/30IrNMH75KYF8r86U5OmnlXN5plU5pM8zYTHHIFmiv12GzvzDH064P2EYjYqZ3F9uD5viZo/UXhcqFxpqiS5pAnYx1+uK01Gh7t0VfmVU/6YzCUIVnAZFG40z+VjqflktEu4CkcV7Fe784NU/OApvWnDVQ6cisnFOGkvseEyjbCcoF9jlxI7j9Cymz+o8pZgXSCe/oMRbClXGg6E9wJwFSzvlkUWoQLiv8JD/pgfe37rqMMDRpCnyyZfGIoUb3jU8lvING0w3bDGFSYH6jXUPIg/TSH5QEedSeEY9fPs0AME1V1q+8APJKdzcNDoZuXHuVxpw1HE2tFSfocM3T1JjdZbRAHoxYtfmyQk6YSfnsqCad35Rb+Ot7j8p2sFTuNAABxhSYoXpm8jFrp/npdT24XhcLvAbSX3OQLDjMHFtl8dYwXHX8ANyXczkfMV16u734V+EKW8DblTIXGOv4nze2FbC7dI1ojcjWvJFrXl9s19Vgk81t/oysGxCqg2URsyXTMpYUnr/b3a1z1JlzUW5DNihPRuPkVduCYdxMFf9AijToDsCGhjgd189WYETXLphVrOUN7NC0zpbkfj5yrFFUpy14uBBynqdfaFwsW7OdOOWcRGJmeOKM=
