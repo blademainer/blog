@@ -13,6 +13,15 @@ date: 2019-06-27 20:30:00
 # consistency
 - [raft](https://github.com/etcd-io/etcd/tree/master/raft)
 
+# middleware
+## mq
+- kafka go client: [sarama](https://github.com/Shopify/sarama)
+
+# language
+## go
+- [govalidator](https://github.com/asaskevich/govalidator)
+- [go-grpc-middleware](https://github.com/grpc-ecosystem/go-grpc-middleware)
+
 # micro-service
 ## tracing
 - [skywalking](https://github.com/apache/skywalking)
