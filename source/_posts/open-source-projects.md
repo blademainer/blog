@@ -62,6 +62,7 @@ date: 2019-06-27 20:30:00
 # ai
 - [tensorflow-js](https://github.com/tensorflow/tfjs-models)
 - [DenseNet](https://github.com/liuzhuang13/DenseNet)
+- [Paddle](https://github.com/PaddlePaddle/Paddle)
 
 # p2p/blockchain
 - [go-libp2p](https://github.com/libp2p/go-libp2p)
