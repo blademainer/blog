@@ -57,6 +57,7 @@ date: 2019-06-27 20:30:00
 - [helm-push](https://github.com/chartmuseum/helm-push)
 - [external-storage](https://github.com/kubernetes-incubator/external-storage)
 - [client-go](https://github.com/kubernetes/client-go)
+- java [kubernetes-client](https://github.com/fabric8io/kubernetes-client)
 
 # ai
 - [tensorflow-js](https://github.com/tensorflow/tfjs-models)
@@ -64,6 +65,7 @@ date: 2019-06-27 20:30:00
 
 # p2p/blockchain
 - [go-libp2p](https://github.com/libp2p/go-libp2p)
+- [go-ethereum](https://github.com/ethereum/go-ethereum)
 
 # db
 - [gh-ost](https://github.com/github/gh-ost)
