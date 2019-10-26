@@ -22,7 +22,9 @@ date: 2019-02-06 14:54:04
 
 ## 支付调用时序图
 {% plantuml %}
-skinparam monochrome true
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
+
+'skinparam monochrome true
 
 actor User
 participant "Channel" as E
@@ -114,6 +116,7 @@ end
 
 ## 整体部署架构
 {% plantuml %}
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
 ' define
 cloud Kubernetes{
