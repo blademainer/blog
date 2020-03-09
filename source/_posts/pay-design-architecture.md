@@ -22,7 +22,9 @@ date: 2019-02-06 14:54:04
 
 ## 支付调用时序图
 {% plantuml %}
-skinparam monochrome true
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
+
+'skinparam monochrome true
 
 actor User
 participant "Channel" as E
@@ -114,10 +116,13 @@ end
 
 ## 整体部署架构
 {% plantuml %}
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
+
+' LAYOUT_TOP_DOWN
 
 ' define
 cloud Kubernetes{
-  package Core {
+'  package Core {
     node PayGateway
     node QueryGateway
     node RefundGateway
@@ -125,10 +130,10 @@ cloud Kubernetes{
     node CallbackGateway
     node NotifyGateway
     node PayDatabase
-  }
+'  }
 
-  package Channels {
-    node Channel...
+  package Channels as c {
+    node Channel... as channels
     node ChannelWechat
     node ChannelAlipay
   }
@@ -158,32 +163,33 @@ database mysql
 'ChannelAlipay ..> EtcdCloud
 'Channel... ..> EtcdCloud
 
-PayCenter -> PayGateway
+PayCenter -left-> PayGateway
 
-PayGateway ---> PayDatabase
-PayGateway ...> Channels
+PayGateway --> PayDatabase
+PayGateway .up.> channels
 
-QueryGateway ---> PayDatabase
-QueryGateway ...> Channels
+QueryGateway --> PayDatabase
+QueryGateway .> channels
 
-RefundGateway ---> PayDatabase
-RefundGateway ...> Channels
+RefundGateway --> PayDatabase
+RefundGateway .> channels
 
-CallbackGateway ---> PayDatabase
-CallbackGateway ...> Channels
+CallbackGateway --> PayDatabase
+CallbackGateway .> channels
 CallbackGateway -> NotifyGateway
 
 
-TransferGateway ---> PayDatabase
-TransferGateway ...> Channels
+TransferGateway --> PayDatabase
+TransferGateway .> channels
 
 PayManagerSystem -> PayDatabase
 PayManagerSystem -> QueryGateway
 
-OrderMonitor ---> PayDatabase
+OrderMonitor -> PayDatabase
 OrderMonitor -> QueryGateway
 
-PayDatabase ---> mysql
+
+PayDatabase --> mysql
 
 {% endplantuml %}
 

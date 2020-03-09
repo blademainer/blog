@@ -129,7 +129,7 @@ echo ${string%%3*1}    //abc12     从$string右边开始，去掉最长匹配�
 获取文件名
 ```shell
 url="https://dl.google.com/go/go1.12.darwin-amd64.tar.gz"
-echo ${url:##*/}  // go1.12.darwin-amd64.tar.gz
+echo ${url##*/}  // go1.12.darwin-amd64.tar.gz
 echo ${url%/*}    // https://dl.google.com/go
 ```
 
