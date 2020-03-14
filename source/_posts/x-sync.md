@@ -14,7 +14,7 @@ date: 2019-03-11 23:16:00
 
 > 打造一个开源、简单、分布式的私人云盘。
 
-{% qnimg pasted-10.png %}
+![](/images/pasted-10.png)
 
 
 <!-- more -->

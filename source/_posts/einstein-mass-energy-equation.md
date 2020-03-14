@@ -11,7 +11,7 @@ top: true
 index: 1
 date: 2019-02-24 14:15:35
 ---
-{% qnimg pasted-4.png %}
+![](/images/pasted-4.png)
 > $$e=mc^2$$
 
 <!-- more -->
