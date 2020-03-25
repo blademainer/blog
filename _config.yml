@@ -200,7 +200,7 @@ admin:
 ##              可使用基本图片处理、高级图片处理、图片水印处理这3个接口。例如 ?imageView2/2/w/500 即生成宽度最多500px的缩略图
 qiniu:
   offline: false
-  sync: true
+  sync: false
   bucket: hexo 
 #  secret_file: sec/qn.json or C:
   access_key: {{QINIU_ACCESS_KEY}}
