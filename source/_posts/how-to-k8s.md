@@ -10,6 +10,12 @@ categories:
 date: 2020-03-25 23:16:00
 ---
 
+![](/images/pasted-5.png)
+
+帮助刚接触k8s的同学，快速和部署健壮的服务到k8s。
+
+<!-- more -->
+
 ## 如何开始(准备/前提)?
 
 > [<i class="fa fa-external-link fa-lg"></i> 学前班][lnk-kube-basic] 
