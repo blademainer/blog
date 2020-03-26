@@ -44,13 +44,13 @@ https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 
 #### CMD的坑
 
-```
+```bash
 CMD myapp
 ```
 
 相当于：
 
-```
+```bash
 /bin/sh -c myapp
 ```
 
@@ -58,7 +58,7 @@ CMD myapp
 
 #### 使用EXEC的方式
 
-```
+```yaml
 CMD ["myapp"]
 ```
 
@@ -66,7 +66,7 @@ CMD ["myapp"]
 
 #### base方式
 
-```
+```yaml
 CMD ["/bin/bash", "-c", "myapp --arg=$ENV_VAR"]
 ```
 
@@ -76,19 +76,19 @@ CMD ["/bin/bash", "-c", "myapp --arg=$ENV_VAR"]
 
 #### 1、yaml中修改
 
-```
+```yaml
 terminationGracePeriodSeconds: 60
 ```
 
 #### 2、delete命令
 
-```
+```bash
 kubectl delete pod-name --grace-peroid=60
 ```
 
 #### 3、preStop Hook
 
-```
+```yaml
 lifecycle:
   preStop:
     exec:
@@ -124,38 +124,37 @@ go http的server.Shutdown
 
 #### tcp
 
-```
-	cmdAddr, _ := net.ResolveTCPAddr("tcp", n.cfg.Addr)
-	lcmd, err := net.ListenTCP("tcp", cmdAddr)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer lcmd.Close()
-	quitChan := make(chan os.Signal, 1)
-	signal.Notify(quitChan, os.Interrupt, os.Kill, syscall.SIGTERM)
-	wg := sync.WaitGroup{}
-	for {
-		select {
-		case <-quitChan:
-			lcmd.Close()
-			wg.Wait()
-			return
-		default:
-		}
-		lcmd.SetDeadline(time.Now().Add(1e9))
-		conn, err := lcmd.AcceptTCP()
-		if opErr, ok := err.(*net.OpError); ok && opErr.Timeout() {
-			continue
-		}
-		if err != nil {
-			log.WithError(err).Errorln("Listener accept")
-			continue
-		}
-		wg.Add(1)
-		go func(){
-			wg.Done()
-			n.handleRequest(conn)
-		}
-		
-  }
+```go
+    cmdAddr, _ := net.ResolveTCPAddr("tcp", n.cfg.Addr)
+    lcmd, err := net.ListenTCP("tcp", cmdAddr)
+    if err != nil {
+      log.Fatalln(err)
+    }
+    defer lcmd.Close()
+    quitChan := make(chan os.Signal, 1)
+    signal.Notify(quitChan, os.Interrupt, os.Kill, syscall.SIGTERM)
+    wg := sync.WaitGroup{}
+    for {
+        select {
+        case <-quitChan:
+            lcmd.Close()
+            wg.Wait()
+            return
+        default:
+        }
+        lcmd.SetDeadline(time.Now().Add(1e9))
+        conn, err := lcmd.AcceptTCP()
+        if opErr, ok := err.(*net.OpError); ok && opErr.Timeout() {
+            continue
+        }
+        if err != nil {
+            log.WithError(err).Errorln("Listener accept")
+            continue
+        }
+        wg.Add(1)
+        go func(){
+            wg.Done()
+            n.handleRequest(conn)
+        }
+     }
 ```
