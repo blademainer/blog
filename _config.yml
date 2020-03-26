@@ -135,7 +135,7 @@ symbols_count_time:
 #theme: beautiful-hexo
 #theme: hexo-theme-yilia
 #theme: landscape
-theme: hexo-theme-next
+theme: next
 
 archive_generator:
   per_page: 0
