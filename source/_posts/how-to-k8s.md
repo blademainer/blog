@@ -99,7 +99,7 @@ $ kubectl get ns
 - 优先使用现有helm内提供的模板来搭建类似 etcd/zk/kafka 集群：
 - 阿里云集群可以使用自动创建云盘的策略[有状态服务-动态云盘使用最佳实践][lnk-aliyun-disk]
 
-[lnk-shutdown-gracefully]: gracefully-terminate "优雅关闭"
+[lnk-shutdown-gracefully]: /2020/03/25/gracefully-terminate/ "优雅关闭"
 [lnk-liveness]: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ "liveness-readiness-startup-probes"
 [lnk-hpa]: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/ "hpa"
 [lnk-resource-quota]: https://kubernetes.io/zh/docs/concepts/configuration/manage-compute-resources-container/ "resource-quota"
