@@ -2,3 +2,6 @@
 	path = themes/next
 #	url = https://github.com/iissnan/hexo-theme-next
 	url = https://github.com/blademainer/hexo-theme-next.git
+[submodule "themes/hexo-theme-next"]
+	path = themes/hexo-theme-next
+	url = https://github.com/theme-next/hexo-theme-next.git
