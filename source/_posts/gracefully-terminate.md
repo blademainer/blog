@@ -128,19 +128,22 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
-	stdlog "log"
+	"log"
 	"net"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/go-kit/kit/log/level"
-	"github.com/namsral/flag"
+	"github.com/blademainer/commons/pkg/logger"
+
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
+	pb "google.golang.org/grpc/examples/helloworld/helloworld"
 	"google.golang.org/grpc/health"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/keepalive"
@@ -149,33 +152,32 @@ import (
 const serviceName = "myserviced"
 
 var (
-	version        = "no version"
+	version = "no version"
 
+	debugPort  = flag.Int("debugPort", 16161, "debug port")
 	httpPort   = flag.Int("httpPort", 8888, "http port")
 	grpcPort   = flag.Int("grpcPort", 9200, "grpc port")
 	healthPort = flag.Int("healthPort", 6666, "grpc health port")
-
-	logLevel     = flag.String("logLevel", "INFO", "Log level, INFO|WARNING|DEBUG|ERROR")
-	gcpProjectID = flag.String("gcpProjectID", "none", "GCP Project ID")
-
-	dev = flag.Bool("dev", false, "Enable development tooling")
-
-	grpcServer       *grpc.Server
-	grpcHealthServer *grpc.Server
-	httpServer       *http.Server
 )
+
+type server struct {
+}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	log.Printf("Received: %v", in.GetName())
+	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
+}
 
 func main() {
 	flag.Parse()
 
-	logger, err := probe.InitLogger(serviceName, *logLevel)
-	if err != nil {
-		stdlog.Fatal("can't init logger", err)
-	}
-	level.Info(logger).Log("msg", "Starting app", "version", version)
+	logger.Infof("Starting app, version: %v", version)
 
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+	// shutdown functions
+	shutdownFunctions := make([]func(), 0)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	shutdownFunctions = append(shutdownFunctions, cancel)
 	defer cancel()
 
 	interrupt := make(chan os.Signal, 1)
@@ -184,14 +186,45 @@ func main() {
 
 	g, ctx := errgroup.WithContext(ctx)
 
+	g.Go(func() error {
+		//profiles := pprof.Profiles()
+
+		httpServer := &http.Server{
+			Addr:         fmt.Sprintf(":%d", *debugPort),
+			ReadTimeout:  10 * time.Second,
+			WriteTimeout: 10 * time.Second,
+			Handler:      nil,
+		}
+		shutdownFunctions = append(shutdownFunctions, func() {
+			err := httpServer.Shutdown(ctx)
+			if err != nil {
+				logger.Errorf("failed to shutdown pprof server! error: %v", err.Error())
+			}
+		})
+
+		logger.Infof("pprof server serving at :%d", *debugPort)
+
+		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			logger.Errorf("failed to listen: %v", err.Error())
+			return err
+		}
+		return nil
+	})
+
 	// web server metrics
 	g.Go(func() error {
-		httpServer = &http.Server{
+		httpServer := &http.Server{
 			Addr:         fmt.Sprintf(":%d", *httpPort),
 			ReadTimeout:  10 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		}
-		level.Info(logger).Log("msg", fmt.Sprintf("HTTP Metrics server serving at :%d", *httpPort))
+		shutdownFunctions = append(shutdownFunctions, func() {
+			err := httpServer.Shutdown(ctx)
+			if err != nil {
+				logger.Errorf("failed to shutdown pprof server! error: %v", err.Error())
+			}
+		})
+		logger.Infof("HTTP Metrics server serving at :%d", *httpPort)
 
 		if err := httpServer.ListenAndServe(); err != http.ErrServerClosed {
 			return err
@@ -203,17 +236,22 @@ func main() {
 	// gRPC Health Server
 	healthServer := health.NewServer()
 	g.Go(func() error {
-		grpcHealthServer = grpc.NewServer()
+		grpcHealthServer := grpc.NewServer()
+
+		shutdownFunctions = append(shutdownFunctions, func() {
+			healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_NOT_SERVING)
+			grpcHealthServer.GracefulStop()
+		})
 
 		healthpb.RegisterHealthServer(grpcHealthServer, healthServer)
 
 		haddr := fmt.Sprintf(":%d", *healthPort)
 		hln, err := net.Listen("tcp", haddr)
 		if err != nil {
-			level.Error(logger).Log("msg", "gRPC Health server: failed to listen", "error", err)
+			logger.Errorf("gRPC Health server: failed to listen, error: %v", err)
 			os.Exit(2)
 		}
-		level.Info(logger).Log("msg", fmt.Sprintf("gRPC health server serving at %s", haddr))
+		logger.Infof("gRPC health server serving at %s", haddr)
 		return grpcHealthServer.Serve(hln)
 	})
 
@@ -222,24 +260,24 @@ func main() {
 		addr := fmt.Sprintf(":%d", *grpcPort)
 		ln, err := net.Listen("tcp", addr)
 		if err != nil {
-			level.Error(logger).Log("msg", "gRPC server: failed to listen", "error", err)
+			logger.Errorf("gRPC server: failed to listen, error: %v", err)
 			os.Exit(2)
 		}
 
-		server := &myservice.Server{
-			Logger:      logger,
-			Health:      healthServer,
-			ServiceName: serviceName,
+		server := &server{
 		}
-		grpcServer = grpc.NewServer(
+		grpcServer := grpc.NewServer(
 			// MaxConnectionAge is just to avoid long connection, to facilitate load balancing
 			// MaxConnectionAgeGrace will torn them, default to infinity
 			grpc.KeepaliveParams(keepalive.ServerParameters{MaxConnectionAge: 2 * time.Minute}),
-			grpc.StatsHandler(&ocgrpc_propag.ServerHandler{}),
 		)
-		myservice.RegisterNyServiceServer(grpcServer, server)
+		pb.RegisterGreeterServer(grpcServer, server)
+		shutdownFunctions = append(shutdownFunctions, func() {
+			healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_NOT_SERVING)
+			grpcServer.GracefulStop()
+		})
 
-		level.Info(logger).Log("msg", fmt.Sprintf("gRPC server serving at %s", addr))
+		logger.Infof("gRPC server serving at %s", addr)
 
 		healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_SERVING)
 
@@ -253,27 +291,15 @@ func main() {
 		break
 	}
 
-	level.Warn(logger).Log("msg", "received shutdown signal")
+	logger.Warnf("received shutdown signal")
 
-	cancel()
-
-	healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_NOT_SERVING)
-
-	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer shutdownCancel()
-
-	if httpServer != nil {
-		_ = httpServer.Shutdown(shutdownCtx)
+	for _, shutdown := range shutdownFunctions {
+		shutdown()
 	}
-	if grpcServer != nil {
-		grpcServer.GracefulStop()
-	}
-	if grpcHealthServer != nil {
-		grpcHealthServer.GracefulStop()
-	}
-	err = g.Wait()
+
+	err := g.Wait()
 	if err != nil {
-		level.Error(logger).Log("msg", "server returning an error", "error", err)
+		logger.Errorf("server returning an error, error: %v", err)
 		os.Exit(2)
 	}
 }

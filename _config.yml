@@ -66,7 +66,7 @@ tag_map:
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
-# Use the date of the post in post.updated if no updated date is provided in the front-matter. Typically used with Git workflo
+# Use the date of the post in post.updated if no updated date is provided in the front-matter. Typically used with Git workflow
 use_date_for_updated: true
 
 # Pagination
