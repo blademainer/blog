@@ -8,6 +8,8 @@ category: Git
 tags:
  - git
  - github
+ date: 2013-11-14
+ updated: 2013-11-14
 ---
 很久没有更新 GitHub 了，以至于那些熟悉的命令也忘记了。今天更新一下，最基础的一些
 命令，以备以后翻阅。

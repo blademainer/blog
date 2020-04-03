@@ -9,6 +9,7 @@ tags:
 categories:
   - share
 date: 2019-06-27 20:30:00
+updated: 2019-06-27 20:30:00
 ---
 # consistency
 - [raft](https://github.com/etcd-io/etcd/tree/master/raft)

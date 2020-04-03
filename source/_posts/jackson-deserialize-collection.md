@@ -1,5 +1,6 @@
 title: Jackson解析json为指定泛型的集合
-date: 2016-03-29 11:22:49
+date: 2016-03-29
+updated: 2016-03-29
 category: java
 tags: 
   - java

@@ -1,5 +1,6 @@
 title: openjdk阅读笔记
-date: 2017-02-17 11:09:19
+date: 2017-02-17
+updated: 2017-02-17
 tags: 
  - java
  - openjdk

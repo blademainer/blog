@@ -1,5 +1,6 @@
 title: shell脚本命令备忘
 date: 2016-09-12 17:09:19
+updated: 2016-09-12 17:09:19
 category: shell
 tags: 
  - shell

@@ -4,7 +4,8 @@ tags:
   - go
 categories:
   - go
-date: 2020-03-25 23:16:00
+date: 2020-03-25
+updated: 2020-03-25
 ---
 
 ![](/images/golang.png)

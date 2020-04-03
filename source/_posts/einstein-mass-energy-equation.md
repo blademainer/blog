@@ -9,7 +9,8 @@ tags:
 mathjax: true
 top: true
 index: 1
-date: 2019-02-24 14:15:35
+date: 2019-02-24
+updated: 2019-02-24
 ---
 ![](/images/pasted-4.png)
 > $$e=mc^2$$

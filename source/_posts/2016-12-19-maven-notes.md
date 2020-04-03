@@ -1,5 +1,6 @@
 title: maven记事本
-date: 2016-12-18 17:09:19
+date: 2016-12-18
+updated: 2016-12-18
 tags: 
  - maven
  - java

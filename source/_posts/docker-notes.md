@@ -1,5 +1,6 @@
 title: Docker notes
-date: 2019-01-29 17:55:44
+date: 2019-01-29
+updated: 2019-01-29
 category: docker
 tags:
   - docker

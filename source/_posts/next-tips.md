@@ -1,5 +1,6 @@
 title: next主题的一些配置 
 date: 2019-02-14 15:40:00
+updated: 2019-02-14 15:40:00
 category: hexo
 tags:
  - hexo

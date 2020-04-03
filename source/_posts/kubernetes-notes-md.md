@@ -1,5 +1,6 @@
 title: kubernetes-notes
-date: 2019-01-26 12:16:37
+date: 2019-01-26
+updated: 2019-01-26
 category: kuberbetes
 tags:
   - kubernetes

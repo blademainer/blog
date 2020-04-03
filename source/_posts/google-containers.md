@@ -1,5 +1,6 @@
 title: gcr.io镜像：解决kubernetes镜像无法访问的问题
-date: 2019-01-29 19:12:46
+date: 2019-01-29
+updated: 2019-01-29
 category: docker
 tags:
   - docker

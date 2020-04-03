@@ -8,6 +8,7 @@ tags:
  - git
  - github
 date: 2013-11-14
+updated: 2013-11-14
 ---
 在 window 下搭建 github 连接。
 ### 前提

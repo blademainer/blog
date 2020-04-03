@@ -8,6 +8,7 @@ tags:
  - shell
  - Linux
 date: 2014-01-04
+updated: 2014-01-04
 ---
 # 备份的原理
 使用Linux的Cron程序定时执行该脚本从而达到备份和删除备份历史的目的。

@@ -8,7 +8,8 @@ tags:
 categories:
   - algorithm
   - distributed
-date: 2019-03-17 19:10:00
+date: 2019-03-17
+updated: 2019-03-17
 ---
 > Raft一致性算法论文(in search of an understandable consensus algorithm)
 

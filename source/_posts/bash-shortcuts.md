@@ -1,5 +1,6 @@
 title: bash快捷键
-date: 2017-03-14 21:09:19
+date: 2017-03-14
+updated: 2017-03-14
 category: shell
 tags: 
   - shell

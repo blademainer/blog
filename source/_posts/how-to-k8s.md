@@ -7,7 +7,8 @@ tags:
   - terminate
 categories:
   - cloud
-date: 2020-03-25 23:16:00
+date: 2020-03-25
+updated: 2020-03-25
 ---
 
 ![](/images/pasted-5.png)

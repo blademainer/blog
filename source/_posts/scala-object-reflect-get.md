@@ -1,5 +1,6 @@
 title: scala根据Class获取单例（孤立）对象
 date: 2015-10-30 17:09:19
+updated: 2015-10-30 17:09:19
 category: scala
 tags: 
  - scala

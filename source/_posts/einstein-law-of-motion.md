@@ -1,5 +1,6 @@
 title: Einstein's Law of Motion 
-date: 2019-02-24 17:22:28
+date: 2019-02-24
+updated: 2019-02-24
 category: physical
 tags:
  - physical

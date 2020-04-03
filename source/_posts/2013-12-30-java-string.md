@@ -8,6 +8,7 @@ tags:
  - java
  - string
 date: 2013-12-30
+updated: 2013-12-30
 ---
 
 # 先来看一个例子，代码如下： 

@@ -8,6 +8,7 @@ tags:
  - Samba
  - linux
 date: 2014-01-06
+updated: 2014-01-06
 ---
 #Linux安装Samba文件共享服务器
 Samba相对于Windows服务器来说具有更灵活的配置、高效等特点。个人认为是共享服务器的最佳选择。
