@@ -51,7 +51,7 @@ index: true
 highlight:
   enable: true
   line_number: true
-  tab_replace: true
+  tab_replace: "    "
 
 
 # Category & Tag
