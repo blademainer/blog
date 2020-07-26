@@ -8,18 +8,18 @@ cache:
   - node_modules
 branches:
   only:
-  - docker 
-before_install
+  - docker
+before_install:
 #- npm install -g hexo-cli
 - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
 - sed -i "s/{{baidu_token}}/${BAIDU_TOKEN}/g" ./_config.yml
 - sed -i "s/{{QINIU_ACCESS_KEY}}/${QINIU_ACCESS_KEY}/g" ./_config.yml
 - sed -i "s/{{QINIU_SECRET_KEY}}/${QINIU_SECRET_KEY}/g" ./_config.yml
 install:
-- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.0 bash -c "npm install"
+- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.3 bash -c "npm install"
 script:
-- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.0 bash -c "hexo generate"
-- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.0 bash -c "hexo qiniu sync"
+- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.3 bash -c "hexo generate"
+- docker run --rm -it -w /app -v `pwd`:/app blademainer/hexo:v1.0.3 bash -c "hexo qiniu sync"
 after_script:
 - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv
   -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
@@ -29,7 +29,7 @@ after_script:
 - cp .travis/ssh_config ~/.ssh/config
 - git config user.name "blademainer"
 - git config user.email "blademainer@gmail.com"
-- docker run --rm -it -w /app -v `pwd`/.travis/ssh_config:/root/.ssh -v `pwd`:/app blademainer/hexo:v1.0.0 bash -c "hexo deploy"
+- docker run --rm -it -w /app -v `pwd`/.travis/ssh_config:/root/.ssh -v `pwd`:/app blademainer/hexo:v1.0.3 bash -c "hexo deploy"
 env:
   global:
   - secure: ee84BM562T/0QMRE2Zf9nJocHQwrFRpUjUC+tcPe3Rcmz+/LKt72phRhxoRuStHtuE7EvzvMQPlkeWkMqjw5vQPWwnWbhsNuvT8cUmuWJhjQCTJKBbviVv/SUBvo2niBS9XGYVMG51HortYC89DqKDAi+Q4kBftU7CEEzgNLgB1jkjMSvGxMYEbT0i7RpZo8qQ+ijjr+CYf6yxonFxCUJrqdBvanbkRdUifQvxXL1ao3tz9OkqdtrK6iVBpC3J5xhEQn10/ssPlOZTOln8YimHCVQXxw7sTau4LzWUCvmFU+3ATzPtjz+YnSjLalaDOnLGI8srjGRLOgsBK/0voagQ0DZ0FDQLgjxxTbqKtWSSde1JeafsptsorhA2VGwGQrx7JskBgBGKa0j7TcXm3XQzFlDP1hkDVjWTLoUxhcWHVWwoacMAgbLLxY9UYjcMpTCN3Kp/p0ZPqx92bO6DqqG4lydgmQEPO2IyB5IdZP7rQC04+AIpSiUyjBX/8+u2TZVQKw7uHWVRMl+irjer8IaH48rBgbs7280zt2N+N+3kk1+CzdOqAu7uFpSznEVVPvR3LjQbn/mrmaCqW+PcQVXKkc3oaD9cCt4UjKph4qTns38ePrEePUNWNIXuJH4Gp0baOf5WEXCReACbf7zvAkQVeqyQ/jrXD19PzNZGMqzU0=
