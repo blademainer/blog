@@ -52,7 +52,7 @@ highlight:
   enable: true
   line_number: true
   tab_replace: "    "
-  auto_detect: true
+  auto_detect: false 
 
 
 # Category & Tag
