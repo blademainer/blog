@@ -11,7 +11,7 @@ date: 2020-03-25
 updated: 2020-04-03
 ---
 
-![](/images/pretty-close.png)
+![](/images/gracefully.jpeg)
 
 k8s如何保障服务健壮性 之 实现优雅关闭
 <!-- more -->
@@ -174,10 +174,13 @@ func main() {
 	logger.Infof("Starting app, version: %v", version)
 
 	// shutdown functions
-	shutdownFunctions := make([]func(), 0)
+	shutdownFunctions := make([]func(context.Context), 0)
+
 
 	ctx, cancel := context.WithCancel(context.Background())
-	shutdownFunctions = append(shutdownFunctions, cancel)
+	shutdownFunctions = append(shutdownFunctions, func(ctx context.Context) {
+		cancel()
+	})
 	defer cancel()
 
 	interrupt := make(chan os.Signal, 1)
@@ -195,7 +198,7 @@ func main() {
 			WriteTimeout: 10 * time.Second,
 			Handler:      nil,
 		}
-		shutdownFunctions = append(shutdownFunctions, func() {
+		shutdownFunctions = append(shutdownFunctions, func(ctx context.Context) {
 			err := httpServer.Shutdown(ctx)
 			if err != nil {
 				logger.Errorf("failed to shutdown pprof server! error: %v", err.Error())
@@ -218,7 +221,7 @@ func main() {
 			ReadTimeout:  10 * time.Second,
 			WriteTimeout: 10 * time.Second,
 		}
-		shutdownFunctions = append(shutdownFunctions, func() {
+		shutdownFunctions = append(shutdownFunctions, func(ctx context.Context) {
 			err := httpServer.Shutdown(ctx)
 			if err != nil {
 				logger.Errorf("failed to shutdown pprof server! error: %v", err.Error())
@@ -238,7 +241,7 @@ func main() {
 	g.Go(func() error {
 		grpcHealthServer := grpc.NewServer()
 
-		shutdownFunctions = append(shutdownFunctions, func() {
+		shutdownFunctions = append(shutdownFunctions, func(ctx context.Context) {
 			healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_NOT_SERVING)
 			grpcHealthServer.GracefulStop()
 		})
@@ -272,7 +275,7 @@ func main() {
 			grpc.KeepaliveParams(keepalive.ServerParameters{MaxConnectionAge: 2 * time.Minute}),
 		)
 		pb.RegisterGreeterServer(grpcServer, server)
-		shutdownFunctions = append(shutdownFunctions, func() {
+		shutdownFunctions = append(shutdownFunctions, func(ctx context.Context) {
 			healthServer.SetServingStatus(fmt.Sprintf("grpc.health.v1.%s", serviceName), healthpb.HealthCheckResponse_NOT_SERVING)
 			grpcServer.GracefulStop()
 		})
@@ -293,8 +296,11 @@ func main() {
 
 	logger.Warnf("received shutdown signal")
 
+	// 创建一个新的Context，等待各个服务释放资源
+	timeout, cancelFunc := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancelFunc()
 	for _, shutdown := range shutdownFunctions {
-		shutdown()
+		shutdown(timeout)
 	}
 
 	err := g.Wait()
@@ -303,6 +309,7 @@ func main() {
 		os.Exit(2)
 	}
 }
+
 ```
 
 #### tcp
