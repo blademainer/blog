@@ -5,7 +5,7 @@ keywords:  About, Author, Site, Dota, blademainer, java, scala,  spring, spark, 
 ---
 # 技能
 - java
-- scala
+- go
 - spring
 - spark
 - kubernetes

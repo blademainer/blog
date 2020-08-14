@@ -1,7 +1,7 @@
 language: node_js
 sudo: required
 node_js:
-- 7.9.0
+- 12.18.3
 cache:
   directories:
   - node_modules
@@ -9,7 +9,7 @@ branches:
   only:
   - master
 before_install:
-- npm install -g hexo-cli
+- npm install -g hexo-cli@3.1.0
 - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
 - sed -i "s/{{baidu_token}}/${BAIDU_TOKEN}/g" ./_config.yml
 - sed -i "s/{{QINIU_ACCESS_KEY}}/${QINIU_ACCESS_KEY}/g" ./_config.yml
@@ -18,6 +18,7 @@ install:
 - npm install
 - npm install hexo-deployer-git --save
 script:
+- set -e
 - hexo generate
 - hexo qiniu sync
 after_script:

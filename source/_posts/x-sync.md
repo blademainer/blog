@@ -7,13 +7,12 @@ tags:
   - devices
 categories:
   - cloud
-  - app
 date: 2019-03-11 23:16:00
 updated: 2019-03-11 23:16:00
 ---
 # SyncCloud 星客云盘
 
-> 打造一个开源、简单、分布式的私人云盘。
+> 打造一个开源、简单、分布式的云盘。
 
 ![](/images/pasted-10.png)
 
