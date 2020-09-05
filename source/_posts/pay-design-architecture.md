@@ -357,9 +357,78 @@ cg --> ch --: ok
 - <span class="green">mgr</span>的心跳检测：二次开发mycat，对mgr节点状态实时检测并增删故障db
 - 应用层：去除自增主键，按机房、机器生成无冲突、有序的流水号，防止多机房数据冲突
 
+```plantuml
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_container.puml
 
-### 整体部署架构
-{% plantuml %}
+Boundary(a, "idc A (Master)"){
+  Boundary(ka, "k8s cluster"){
+    System(pa, "Pay Gateway"){
+      Container(paa, "Apps", "Gateways")
+      Container(cha1, "Channel Services", "Alipay channel")
+    }
+    System_Ext(ma, "Mycat")
+  }
+  SystemDb(dba, "DB"){
+    ContainerDb(dba1, "db", "Group replication")
+    ContainerDb(dba2, "db", "Group replication")
+    ContainerDb(dba3, "db", "Group replication")
+  }
+  
+  System(ota, "Otter", "Sync data")
+  
+  paa --> ma
+  paa -> cha1
+  
+  ma -D-> dba1: W/R
+  ma -D-> dba2: W/R
+  ma -D-> dba3: W/R
+  
+  dba1 <-> dba2: Replication
+  dba2 <-> dba3: Replication
+  
+  dba1 --> ota: binlog
+  dba2 ..> ota: binlog
+  dba3 ..> ota: binlog
+}
+
+Boundary(b, "idc B"){
+  Boundary(kb, "k8s cluster"){
+    System(pb, "Pay Gateway"){
+      Container(pab, "Apps", "Gateways")
+      Container(chb1, "Channel Services", "Alipay channel")
+    }
+    System_Ext(mb, "Mycat")
+  }
+  SystemDb(dbb, "DB"){
+    ContainerDb(dbb1, "db", "Group replication")
+    ContainerDb(dbb2, "db", "Group replication")
+    ContainerDb(dbb3, "db", "Group replication")
+  }
+  
+  System(otb, "Otter", "Sync data")
+  
+  pab --> mb
+  pab -> chb1
+  
+  mb -D-> dbb1: W/R
+  mb -D-> dbb2: W/R
+  mb -D-> dbb3: W/R
+  
+  dbb1 <-> dbb2: Replication
+  dbb2 <-> dbb3: Replication
+  
+  dbb1 --> otb: binlog
+  dbb2 ..> otb: binlog
+  dbb3 ..> otb: binlog
+}
+
+ota <.> otb: sync
+```
+
+
+### 部署架构
+
+```plantuml
 !includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
 ' LAYOUT_TOP_DOWN
@@ -435,7 +504,7 @@ OrderMonitor -> QueryGateway
 
 PayDatabase --> mysql
 
-{% endplantuml %}
+```
 
 ## 交互
 ### 配置
