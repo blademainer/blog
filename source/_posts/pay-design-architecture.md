@@ -102,7 +102,7 @@ span.yellow {
   - 管理后台根据field json生成配置表单
 
 
-{% plantuml %}
+```plantuml
 
 !includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
@@ -132,7 +132,7 @@ channel_system .> pay_gateway_system: Notify
 pay_gateway_system .> pay_center_system: Notify
 pay_center_system .> biz_system: Notify
 
-{% endplantuml %}
+```
 
 
 ### 支付网关系统
@@ -186,7 +186,7 @@ cs --> ch
 
 
 ### 支付调用时序图
-{% plantuml %}
+```plantuml
 !includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
 'skinparam monochrome true
@@ -276,7 +276,7 @@ loop
     end
     deactivate H
 end
-{% endplantuml %}
+```
 
 
 ### 签约
@@ -364,7 +364,11 @@ Boundary(a, "idc A (Master)"){
   Boundary(ka, "k8s cluster"){
     System(pa, "Pay Gateway"){
       Container(paa, "Apps", "Gateways")
-      Container(cha1, "Channel Services", "Alipay channel")
+      Boundary(chs, "Channel Services"){
+        Container(ch1, "Channel Wechat", "Channel service")
+        Container(ch2, "Channel Alipay", "Channel service")
+        Container(chx, "Channel ...", "Channel service")
+      }
     }
     System_Ext(ma, "Mycat")
   }
@@ -376,8 +380,13 @@ Boundary(a, "idc A (Master)"){
   
   System(ota, "Otter", "Sync data")
   
+  
+  'ch1 -[hidden]D- ch2
+  'ch2 -[hidden]D- chx
   paa --> ma
-  paa -> cha1
+  paa -U-> ch1
+  paa -U-> ch2
+  paa -U-> chx
   
   ma -D-> dba1: W/R
   ma -D-> dba2: W/R
@@ -395,7 +404,11 @@ Boundary(b, "idc B"){
   Boundary(kb, "k8s cluster"){
     System(pb, "Pay Gateway"){
       Container(pab, "Apps", "Gateways")
-      Container(chb1, "Channel Services", "Alipay channel")
+      Boundary(chbs, "Channel Services"){
+        Container(chb1, "Channel Wechat", "Channel service")
+        Container(chb2, "Channel Alipay", "Channel service")
+        Container(chbx, "Channel ...", "Channel service")
+      }
     }
     System_Ext(mb, "Mycat")
   }
@@ -408,6 +421,9 @@ Boundary(b, "idc B"){
   System(otb, "Otter", "Sync data")
   
   pab --> mb
+  pab -U-> chb1
+  pab -U-> chb2
+  pab -U-> chbx
   pab -> chb1
   
   mb -D-> dbb1: W/R
