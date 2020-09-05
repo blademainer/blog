@@ -15,11 +15,92 @@ updated: 2019-02-06 14:54:04
 
 <!-- more -->
 
+<style>
 
-# 架构设计
+span.green {
+    color: #54CC76;
+}
+  
+span.purple {
+    color: #7949B3;
+}
+  
+span.yellow {
+    color: #FFCA80;
+}
 
-## 微服务
-服务间使用grpc进行通讯。
+
+</style>
+
+## 设计
+
+### <span class="purple">目标</span>
+
+- <span class="green">简化逻辑</span>：边界清晰、无冗余逻辑、方便测试
+- <span class="green">分布式</span>：容器化部署、无状态、可扩展、低耦合
+- <span class="green">高用性</span>：机房多主、自动扩容、数据库最终一致
+
+### <span class="purple">拆分</span>
+
+- <span class="yellow">业务</span>：代金券、活动
+- <span class="yellow">支付中心</span>：商品管理、价格管理、发货路由
+- <span class="green">支付网关</span>：下单、支付、代扣、通知、后督（*订单二次确认*）、对账、渠道服务
+
+## 实现
+
+
+### <span class="purple">网关</span>体系
+
+- 支付网关：接受下单请求、校验签名、生成订单、操作DB、调用渠道服务
+- 代扣网关：处理签约请求、代扣请求、互斥逻辑
+- 通知网关：处理渠道通知
+
+
+### 渠道服务集合
+
+#### 原则
+
+- 无db操作
+- 无订单操作
+- 只接受请求并响应对应数据
+- 不关心上层逻辑
+
+#### 微服务化
+
+- service:
+  - wechat
+  - alipay
+  - unionpay
+- rpc:
+  - grpc://wechat:8080
+  - grpc://alipay:8080
+  - http://unionpay:8080
+
+> 渠道微服务化，可以在国际化业务中带来更便捷的差异化部署
+
+#### 面向<span class="purple">协议</span>编程
+
+- pay(用户触发扣款或签约)
+  - method：alipay/wechat/unionpay
+  - from: WEB/MWEB/APP/SDK/BANK/SERVER
+  - type: pay/sign_pay
+- confirm_pay(确认支付，用户二次验证)
+  - from
+  - type
+  - method
+- refund(退款)
+- transfer(转账)
+
+#### <span class="purple">扩展</span>&配置
+
+- etcd配置管理
+  - 高可用
+  - 实时变更配置
+  - 跨地域同步
+- 简化配置
+  - 使用field tag生成json
+  - 管理后台根据field json生成配置表单
+
 
 {% plantuml %}
 
@@ -53,7 +134,58 @@ pay_center_system .> biz_system: Notify
 
 {% endplantuml %}
 
-## 支付调用时序图
+
+### 支付网关系统
+
+```plantuml
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_container.puml
+
+System_Ext(pc, "Pay center", "For biz")
+System_Ext(ch, "Pay Channels", "wechat/alipay/unionpay...")
+
+System_Boundary(sb, "Pay Gateway"){
+  Container(ag, "Api Gateway", "Service discovery, Canary release, Parameters convert... Implements by ingress/zuul")
+  
+  Container(pg, "Pay Service", "Generate order")
+  Container(sg, "Sign Service", "For Monthly/Quarterly/Yearly sign and renew")
+  Container(cg, "Callback Service", "Receive callback from channels.")
+  Container(nf, "Notify Service", "Notify to biz.")
+  Container(os, "Order Supervision", "Query order status.")
+  
+  
+  Container(cs, "Channel Services", "Deliver pay requests between gateways and channels.")
+  Container(ds, "DB Service", "Db operations.")
+  
+  Container(mq, "Queue", "Message queue.")
+  ContainerDb(db, "Database", "mysql,middlewares")
+  Container(etcd, "etcd", "Config system.")
+  
+  ag --> pg
+  ag --> sg
+  ag --> cg
+  
+  pg --> ds
+  pg --> cs
+  sg --> ds
+  sg --> cs
+  cg --> ds
+  cg --> cs
+  cg --> mq: Push message
+  os --> db: Query orders
+  'os --> mq: Secondary confirmation
+  mq --> nf: Pull message
+  
+  ds --> db
+  db -[hidden]r- etcd
+}
+
+pc -L-> ag
+cs --> ch
+
+```
+
+
+### 支付调用时序图
 {% plantuml %}
 !includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
@@ -147,7 +279,86 @@ end
 {% endplantuml %}
 
 
-## 整体部署架构
+### 签约
+
+```plantuml
+!includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_container.puml
+
+actor "User" as u
+participant "Channel" as ch
+participant "VirtualAssetsSystem" as vas
+participant "PayCenter(Biz)" as pc
+box "Internal Service"
+participant "PayService" as pg
+participant "SignService" as spg
+participant "CallbackService" as cg
+participant "SignCallbackService" as sng
+participant "ChannelServices" as pcs
+participant "PayDatabase" as db
+end box
+
+autonumber
+
+u -> pc: Sign request
+pc -> spg ++: Sign(app_id, uid, product_id, amount)
+spg -> db ++: IsExists(uid, app_id, product_id, channel)
+db --> spg --: OK
+spg -> pcs ++: Sign request
+pcs -> pcs: Generate sign
+pcs -> ch: Sign request
+pcs --> spg --: Response
+spg --> pc --: Response data
+pc --> u --: Show QR or direct to url
+
+...
+
+u -> ch: Confirm
+
+ch -> sng ++: Notify
+sng -> db ++: Query sign record
+db --> sng --: OK
+sng -> pcs ++: Verify
+pcs --> sng --: OK
+sng -> db ++: Update status
+db --> sng --: OK
+sng --> ch --: OK
+
+ch --> u: Direct
+
+vas -> vas: Check expire
+vas -> pc ++: Expire events(uid, product_id)
+pc -> spg ++: Renew(uid, sign_id)
+spg -> db ++: Query sign record
+db --> spg --: OK
+spg --> pg ++: Pay
+pg -> db ++: Generate order
+db --> pg --: OK
+pg -> pcs ++: Order request
+pcs -> pcs: Generate message
+pcs -> ch: Order request
+pcs --> pg --: OK
+pg --> spg --: OK
+spg --> pc --: OK
+deactivate pc
+
+ch --> cg ++: Notify
+cg -> db: Query order
+cg -> pcs: Verify
+cg -> pc ++: Notify
+pc -> vas: Notify
+pc --> cg --: ok
+cg --> ch --: ok
+```
+
+### 数据库<span class="purple">高可用</span>
+
+- 跨DC同步：基于otter进行同步，双向同步（多机房使用星型结构）
+- 同DC高可用：基于mycat和mgr，实现大容量、高可用db集群
+- <span class="green">mgr</span>的心跳检测：二次开发mycat，对mgr节点状态实时检测并增删故障db
+- 应用层：去除自增主键，按机房、机器生成无冲突、有序的流水号，防止多机房数据冲突
+
+
+### 整体部署架构
 {% plantuml %}
 !includeurl https://raw.githubusercontent.com/blademainer/plantuml-style-c4/master/c4_component.puml
 
@@ -226,9 +437,9 @@ PayDatabase --> mysql
 
 {% endplantuml %}
 
-# 交互
-## 配置
+## 交互
+### 配置
 核心交易系统是将配置信息存储在`etcd`容器内
-### 渠道
+#### 渠道
 - 基础目录: `/foo/bar/pay/config`
 - 每个渠道占用一个文件夹，每个渠道账户占用一个`文件`，例如微信存放在`/foo/bar/pay/config/wechat`目录下，appId: 2088123456 所在的配置信息存储在`/foo/bar/pay/config/wechat/2088123456`
