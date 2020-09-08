@@ -6,7 +6,7 @@ tags:
   - architecture
 category: pay
 date: 2019-02-06 14:54:04
-updated: 2019-02-06 14:54:04
+updated: 2020-09-08 23:31:04
 ---
 
 ![](/images/pasted-8.png)
@@ -424,7 +424,6 @@ Boundary(b, "idc B"){
   pab -U-> chb1
   pab -U-> chb2
   pab -U-> chbx
-  pab -> chb1
   
   mb -D-> dbb1: W/R
   mb -D-> dbb2: W/R
