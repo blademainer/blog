@@ -4,6 +4,14 @@ db.json
 *.log
 node_modules/
 public/
+dist/
+.astro/
+.legacy/
+playwright-report/
+test-results/
+artifacts/
+.env
+.env.*
 .deploy*/
 *~
 ### Linux template

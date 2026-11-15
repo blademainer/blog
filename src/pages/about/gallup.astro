@@ -1,0 +1,36 @@
+---
+import { readFile } from "node:fs/promises";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import {
+  parseLegacyPost,
+  renderMarkdown,
+  dateString,
+} from "../../lib/posts.mjs";
+const { metadata, body } = parseLegacyPost(
+  await readFile("source/about/gallup.md", "utf8"),
+);
+const post = {
+  title: metadata.title,
+  date: dateString(metadata.date),
+  updated: dateString(metadata.date),
+  minutes: 15,
+  description: metadata.title,
+  categories: [],
+  tags: [],
+  headings: [],
+  url: "/about/gallup/",
+  html: await renderMarkdown(body),
+  discussionUrl: null,
+};
+---
+
+<SiteLayout
+  title={`${post.title} · Blademainer`}
+  description="2016 年的历史记录。"
+  canonical={post.url}
+  section="about"
+  article
+>
+  <BlogPost post={post} />
+</SiteLayout>

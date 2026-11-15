@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "2013-11-14-create-github-page",
+    "url": "/2013/11/13/2013-11-14-create-github-page/",
+    "title": "在 github 上建立 pages 的过程",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-create-github-page/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/43"
+  },
+  {
+    "slug": "2013-11-14-github-notes",
+    "url": "/2013/11/13/2013-11-14-github-notes/",
+    "title": "Git/SVN常用命令笔记",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-github-notes/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/46"
+  },
+  {
+    "slug": "2013-11-14-mac-git-and-github",
+    "url": "/2013/11/13/2013-11-14-mac-git-and-github/",
+    "title": "在 mac 上使用 Git 和 GitHub 连接",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-mac-git-and-github/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/48"
+  },
+  {
+    "slug": "2013-11-14-mac-wget",
+    "url": "/2013/11/13/2013-11-14-mac-wget/",
+    "title": "mac 上安装 wget",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-mac-wget/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/47"
+  },
+  {
+    "slug": "2013-11-14-sl-alpha",
+    "url": "/2013/11/13/2013-11-14-sl-alpha/",
+    "title": "css 背景透明解决方案",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-sl-alpha/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/44"
+  },
+  {
+    "slug": "2013-11-14-some-github-api",
+    "url": "/2013/11/13/2013-11-14-some-github-api/",
+    "title": "GitHub API v2 笔记",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-some-github-api/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/49"
+  },
+  {
+    "slug": "2013-11-14-start-github-on-window",
+    "url": "/2013/11/13/2013-11-14-start-github-on-window/",
+    "title": "window下建立github 连接",
+    "legacyPaths": [
+      "/2013/11/14/2013-11-14-start-github-on-window/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/45"
+  },
+  {
+    "slug": "2013-11-29-BPMN-2-Event-Base-Gateway-start",
+    "url": "/2013/11/28/2013-11-29-BPMN-2-Event-Base-Gateway-start/",
+    "title": "BPMN2.0之使用Event Base Gateway启动流程",
+    "legacyPaths": [
+      "/2013/11/29/2013-11-29-BPMN-2-Event-Base-Gateway-start/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/42"
+  },
+  {
+    "slug": "2013-12-28-motivational-eggs",
+    "url": "/2013/12/27/2013-12-28-motivational-eggs/",
+    "title": "励志的鸡蛋",
+    "legacyPaths": [
+      "/2013/12/28/2013-12-28-motivational-eggs/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/40"
+  },
+  {
+    "slug": "2013-12-30-java-string",
+    "url": "/2013/12/29/2013-12-30-java-string/",
+    "title": "Java String对象的经典问题",
+    "legacyPaths": [
+      "/2013/12/30/2013-12-30-java-string/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/39"
+  },
+  {
+    "slug": "2014-01-04-linux-backup-shell",
+    "url": "/2014/01/03/2014-01-04-linux-backup-shell/",
+    "title": "Linux使用shell脚本定时备份文件（夹）并删除一定日期之前的备份和日志",
+    "legacyPaths": [
+      "/2014/01/04/2014-01-04-linux-backup-shell/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/37"
+  },
+  {
+    "slug": "2014-01-04-windows-backup-bat",
+    "url": "/2014/01/03/2014-01-04-windows-backup-bat/",
+    "title": "Windows使用bat脚本定时备份文件（夹）并删除一定日期之前的备份和日志",
+    "legacyPaths": [
+      "/2014/01/04/2014-01-04-windows-backup-bat/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/38"
+  },
+  {
+    "slug": "2014-01-06-samba-linux-attentions",
+    "url": "/2014/01/05/2014-01-06-samba-linux-attentions/",
+    "title": "Linux安装Samba文件共享服务器",
+    "legacyPaths": [
+      "/2014/01/06/2014-01-06-samba-linux-attentions/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/36"
+  },
+  {
+    "slug": "2014-06-30-spring-mvc-jackson-enhance",
+    "url": "/2015/10/13/2014-06-30-spring-mvc-jackson-enhance/",
+    "title": "解决springmvcjson循环依赖问题：Spring MVC中使用jackson的MixInAnnotations方法动态过滤JSON字段",
+    "legacyPaths": [
+      "/2015/10/14/2014-06-30-spring-mvc-jackson-enhance/",
+      "/java/2014/06/30/spring-mvc-jackson-enhance.html"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/4"
+  },
+  {
+    "slug": "2016-11-14-tools-download-url",
+    "url": "/2016/11/14/2016-11-14-tools-download-url/",
+    "title": "java开发者常用软件下载地址收集",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/17"
+  },
+  {
+    "slug": "2016-12-19-maven-notes",
+    "url": "/2016/12/17/2016-12-19-maven-notes/",
+    "title": "maven记事本",
+    "legacyPaths": [
+      "/2016/12/18/2016-12-19-maven-notes/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/16"
+  },
+  {
+    "slug": "2017-02-17-openjdk-read-note",
+    "url": "/2017/02/16/2017-02-17-openjdk-read-note/",
+    "title": "openjdk阅读笔记",
+    "legacyPaths": [
+      "/2017/02/17/2017-02-17-openjdk-read-note/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/14"
+  },
+  {
+    "slug": "2017-04-06-run-java-in-docker",
+    "url": "/2017/04/05/2017-04-06-run-java-in-docker/",
+    "title": "在docker内运行java的问题",
+    "legacyPaths": [
+      "/2017/04/06/2017-04-06-run-java-in-docker/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/74"
+  },
+  {
+    "slug": "2019-01-20-mysql-notes",
+    "url": "/2019/01/19/2019-01-20-mysql-notes/",
+    "title": "MySQL笔记",
+    "legacyPaths": [
+      "/2019/01/20/2019-01-20-mysql-notes/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/10"
+  },
+  {
+    "slug": "ali-java-specification",
+    "url": "/2017/02/13/ali-java-specification/",
+    "title": "阿里巴巴Java开发手册",
+    "legacyPaths": [
+      "/2017/02/14/ali-java-specification/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/15"
+  },
+  {
+    "slug": "bash-shortcuts",
+    "url": "/2017/03/13/bash-shortcuts/",
+    "title": "bash快捷键",
+    "legacyPaths": [
+      "/2017/03/14/bash-shortcuts/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/13"
+  },
+  {
+    "slug": "curl-debug",
+    "url": "/2019/03/05/curl-debug/",
+    "title": "curl网络耗时调试",
+    "legacyPaths": [
+      "/2019/03/06/curl-debug/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/69"
+  },
+  {
+    "slug": "docker-notes",
+    "url": "/2019/01/28/docker-notes/",
+    "title": "Docker notes",
+    "legacyPaths": [
+      "/2019/01/29/docker-notes/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/7"
+  },
+  {
+    "slug": "einstein-law-of-motion",
+    "url": "/2019/02/23/einstein-law-of-motion/",
+    "title": "Einstein's Law of Motion",
+    "legacyPaths": [
+      "/2019/02/24/einstein-law-of-motion/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/52"
+  },
+  {
+    "slug": "einstein-mass-energy-equation",
+    "url": "/2019/02/23/einstein-mass-energy-equation/",
+    "title": "Einstein's Mass-Energy Equation",
+    "legacyPaths": [
+      "/2019/02/24/einstein-mass-energy-equation/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/70"
+  },
+  {
+    "slug": "einstein-mass-velocity-equation",
+    "url": "/2019/02/23/einstein-mass-velocity-equation/",
+    "title": "Einstein's Mass-Velocity Equation",
+    "legacyPaths": [
+      "/2019/02/24/einstein-mass-velocity-equation/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/53"
+  },
+  {
+    "slug": "go-hit-the-bit",
+    "url": "/2020/03/24/go-hit-the-bit/",
+    "title": "Go解坑指南",
+    "legacyPaths": [
+      "/2020/03/25/go-hit-the-bit/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/62"
+  },
+  {
+    "slug": "google-containers",
+    "url": "/2019/01/28/google-containers/",
+    "title": "gcr.io镜像：解决kubernetes镜像无法访问的问题",
+    "legacyPaths": [
+      "/2019/01/29/google-containers/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/2"
+  },
+  {
+    "slug": "gracefully-terminate",
+    "url": "/2020/03/24/gracefully-terminate/",
+    "title": "k8s优雅关闭",
+    "legacyPaths": [
+      "/2020/03/25/gracefully-terminate/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/67"
+  },
+  {
+    "slug": "how-to-k8s",
+    "url": "/2020/03/24/how-to-k8s/",
+    "title": "k8s入门指引",
+    "legacyPaths": [
+      "/2020/03/25/how-to-k8s/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/68"
+  },
+  {
+    "slug": "in-search-of-an-understandable-consensus-algorithm",
+    "url": "/2019/03/16/in-search-of-an-understandable-consensus-algorithm/",
+    "title": "In Search of an Understandable Consensus Algorithm (Extended Version)",
+    "legacyPaths": [
+      "/2019/03/17/in-search-of-an-understandable-consensus-algorithm/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/66"
+  },
+  {
+    "slug": "jackson-deserialize-collection",
+    "url": "/2016/03/28/jackson-deserialize-collection/",
+    "title": "Jackson解析json为指定泛型的集合",
+    "legacyPaths": [
+      "/2016/03/29/jackson-deserialize-collection/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/34"
+  },
+  {
+    "slug": "java-multiple-segment-lock",
+    "url": "/2016/04/17/java-multiple-segment-lock/",
+    "title": "java分段锁示例",
+    "legacyPaths": [
+      "/2016/04/18/java-multiple-segment-lock/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/33"
+  },
+  {
+    "slug": "kubernetes-go-timeout",
+    "url": "/2019/03/09/kubernetes-go-timeout/",
+    "title": "运维笔记：一次kubernetes内偶发超时的问题",
+    "legacyPaths": [
+      "/2019/03/10/kubernetes-go-timeout/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/56"
+  },
+  {
+    "slug": "kubernetes-notes-md",
+    "url": "/2019/01/25/kubernetes-notes-md/",
+    "title": "kubernetes-notes",
+    "legacyPaths": [
+      "/2019/01/26/kubernetes-notes-md/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/75"
+  },
+  {
+    "slug": "mac-screenshots",
+    "url": "/2019/01/29/mac-screenshots/",
+    "title": "Mac滚动截屏",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/6"
+  },
+  {
+    "slug": "next-tips",
+    "url": "/2019/02/14/next-tips/",
+    "title": "next主题的一些配置",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/29"
+  },
+  {
+    "slug": "open-source-projects",
+    "url": "/2019/06/27/open-source-projects/",
+    "title": "open-source-projects",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/59"
+  },
+  {
+    "slug": "pay-design-architecture",
+    "url": "/2019/02/06/pay-design-architecture/",
+    "title": "支付系统-架构设计",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/20"
+  },
+  {
+    "slug": "pay-summary",
+    "url": "/2019/02/06/pay-summary/",
+    "title": "支付系统-概述",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/21"
+  },
+  {
+    "slug": "plant-uml-demo",
+    "url": "/2019/01/24/plant-uml-demo/",
+    "title": "plantuml示例",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/9"
+  },
+  {
+    "slug": "run-docker-in-docker",
+    "url": "/2017/03/23/run-docker-in-docker/",
+    "title": "在docker内运行docker命令",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/12"
+  },
+  {
+    "slug": "scala-object-reflect-get",
+    "url": "/2015/10/30/scala-object-reflect-get/",
+    "title": "scala根据Class获取单例（孤立）对象",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/35"
+  },
+  {
+    "slug": "shell-notes",
+    "url": "/2016/09/12/shell-notes/",
+    "title": "shell脚本命令备忘",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/32"
+  },
+  {
+    "slug": "shell-strings",
+    "url": "/2019/01/30/shell-strings/",
+    "title": "shell-strings",
+    "legacyPaths": [
+      "/2019/01/31/shell-strings/"
+    ],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/31"
+  },
+  {
+    "slug": "use-git-submodules",
+    "url": "/2019/02/01/use-git-submodules/",
+    "title": "hexo使用git子模块来管理theme",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/5"
+  },
+  {
+    "slug": "x-sync",
+    "url": "/2019/03/11/x-sync/",
+    "title": "星客云盘",
+    "legacyPaths": [],
+    "discussionUrl": "https://github.com/blademainer/blademainer.github.com/issues/57"
+  }
+]

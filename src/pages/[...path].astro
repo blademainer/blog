@@ -1,0 +1,85 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import BlogListing from "../components/BlogListing.astro";
+import BlogPost from "../components/BlogPost.astro";
+import { getPosts } from "../lib/posts.mjs";
+import { getPageRoutes, taxonomyUrl } from "../lib/routes.mjs";
+export async function getStaticPaths() {
+  return getPageRoutes(await getPosts());
+}
+const {
+  kind,
+  post,
+  posts,
+  title,
+  description,
+  eyebrow,
+  page,
+  groups,
+  key,
+  label,
+} = Astro.props;
+const pageTitle =
+  kind === "post"
+    ? post.title
+    : kind === "taxonomy"
+      ? label
+      : kind === "not-found"
+        ? "页面未找到"
+        : title;
+---
+
+<SiteLayout
+  title={`${pageTitle} · Blademainer`}
+  description={kind === "post" ? post.description : description}
+  section="blog"
+  canonical={kind === "post" ? post.url : undefined}
+  article={kind === "post"}
+>
+  {kind === "post" && <BlogPost post={post} />}
+  {kind === "listing" && (
+    <BlogListing
+      posts={posts}
+      title={title}
+      description={description}
+      eyebrow={eyebrow}
+      page={page}
+    />
+  )}
+  {kind === "not-found" && (
+    <section class="not-found container">
+      <p class="eyebrow">404 / NOT FOUND</p>
+      <h1>
+        这个页面，
+        <br />
+        暂时没找到。
+      </h1>
+      <p>可以返回首页，或在博客中搜索文章。</p>
+      <div class="button-row">
+        <a class="button button-primary" href="/">
+          返回首页
+        </a>
+        <a class="button button-outline" href="/blog/">
+          搜索博客
+        </a>
+      </div>
+    </section>
+  )}
+  {kind === "taxonomy" && (
+    <>
+      <section class="page-intro container">
+        <p class="eyebrow">EXPLORE THE NOTEBOOK</p>
+        <h1>{label}。</h1>
+        <p>从一个关键词，开始阅读。</p>
+      </section>
+      <section class="container taxonomy-grid">
+        {groups.map(([term, matches]) => (
+          <a href={taxonomyUrl(key, term)}>
+            {term}
+            <span>{matches.length}</span>
+          </a>
+        ))}
+      </section>
+    </>
+  )}
+</SiteLayout>

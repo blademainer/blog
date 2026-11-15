@@ -1,0 +1,55 @@
+---
+import { Scan, PencilLine, Clipboard, Video, ArrowUpRight } from "lucide-astro";
+const features = [
+  {
+    icon: Scan,
+    index: "01",
+    title: "截得刚刚好",
+    text: "全屏、窗口或自选区域。把想分享的部分留下，其余留给专注。",
+  },
+  {
+    icon: PencilLine,
+    index: "02",
+    title: "重点，直接画出来",
+    text: "画笔、箭头、形状和文字标注，在截图上直接编辑，支持撤销与重做。",
+  },
+  {
+    icon: Clipboard,
+    index: "03",
+    title: "复制，然后分享",
+    text: "截图默认复制到剪贴板，也可以保存到本地。少一次寻找，多一点顺畅。",
+  },
+  {
+    icon: Video,
+    index: "04",
+    title: "让过程也说得清",
+    text: "录制屏幕与声音，选择系统音频或麦克风，把操作过程一起交代清楚。",
+  },
+];
+---
+
+<section class="section features-section" id="features">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">LESS FRICTION. MORE FLOW.</p>
+        <h2>从看见，到分享。</h2>
+      </div>
+      <a class="text-link" href="/apps/mac-screen-capture/">
+        探索 MacScreenCapture <ArrowUpRight size={18} />
+      </a>
+    </div>
+    <div class="feature-grid">
+      {features.map((feature) => (
+        <div class="feature-item">
+          <div class="feature-top">
+            <feature.icon size={26} strokeWidth={1.6} />
+            <span>{feature.index}</span>
+          </div>
+          <h3>{feature.title}</h3>
+          <p>{feature.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

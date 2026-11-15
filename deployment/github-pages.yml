@@ -1,0 +1,54 @@
+# Install in blademainer/blademainer.github.com after the preview is approved.
+name: Deploy Blademainer Website
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Reviewed commit SHA or branch in blademainer/blog
+        required: true
+        default: master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blademainer-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: blademainer/blog
+          ref: ${{ inputs.source_ref }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/checkout@v4
+        with:
+          repository: blademainer/blademainer.github.com
+          path: .legacy/site
+          persist-credentials: false
+      - run: npm ci
+      - run: npm run check
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

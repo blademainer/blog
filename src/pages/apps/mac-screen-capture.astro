@@ -1,0 +1,208 @@
+---
+import {
+  ArrowUpRight,
+  Github,
+  Download,
+  Check,
+  Monitor,
+  Command,
+  CircleAlert,
+} from "lucide-astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import DownloadButtons from "../../components/DownloadButtons.astro";
+import ProductFeatures from "../../components/ProductFeatures.astro";
+import { featuredProduct as product } from "../../data/products.mjs";
+import { releaseAsset } from "../../lib/releases.mjs";
+---
+
+<SiteLayout
+  title="MacScreenCapture · 截图、标注与录屏 · Blademainer"
+  description={product.description}
+  section="apps"
+>
+  <section class="product-hero container">
+    <a class="breadcrumb" href="/apps/">
+      软件 / macOS
+    </a>
+    <img
+      class="product-icon"
+      src={product.icon}
+      width="80"
+      height="80"
+      alt="MacScreenCapture 应用图标"
+    />
+    <h1>MacScreenCapture</h1>
+    <p class="hero-tagline">截下灵感，表达清楚。</p>
+    <p class="hero-description">
+      你的 macOS 截图、标注与录屏工具。
+      <br />
+      从捕捉画面到表达重点，留在同一个工作流里。
+    </p>
+    <DownloadButtons />
+    <div class="product-hero-image">
+      <img
+        src={product.screenshot}
+        alt="MacScreenCapture 实际截图与高级工具界面"
+        width="1200"
+        height="904"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+  <ProductFeatures />
+  <section class="section recording-section">
+    <div class="container workflow-grid">
+      <figure class="product-figure">
+        <img
+          src="/assets/recording-settings.png"
+          width="900"
+          height="700"
+          loading="lazy"
+          alt="MacScreenCapture 录制设置，可设置帧率、质量、格式、系统音频和麦克风"
+        />
+        <figcaption>真实应用界面 · 录制设置</figcaption>
+      </figure>
+      <div class="workflow-copy">
+        <p class="eyebrow">BEYOND A STILL IMAGE</p>
+        <h2>
+          有些事情，
+          <br />
+          录下来更清楚。
+        </h2>
+        <p>
+          操作演示、问题复现、过程记录。选择录制范围与音频来源，把完整的上下文一起留下。
+        </p>
+        <ul class="check-list">
+          <li>
+            <Check size={18} />
+            全屏、窗口与区域录制
+          </li>
+          <li>
+            <Check size={18} />
+            系统音频与麦克风选项
+          </li>
+          <li>
+            <Check size={18} />
+            可设置帧率、质量与导出格式
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="section container installation-section" id="installation">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">GET STARTED</p>
+        <h2>装好，就开始。</h2>
+      </div>
+      <p class="section-aside">
+        macOS 15 或更高版本
+        <br />
+        Apple Silicon 与 Intel 通用版本
+      </p>
+    </div>
+    <ol class="install-steps">
+      <li>
+        <span>01</span>
+        <h3>下载与安装</h3>
+        <p>下载 DMG，打开后将 MacScreenCapture 拖入 Applications 文件夹。</p>
+      </li>
+      <li>
+        <span>02</span>
+        <h3>确认安装来源</h3>
+        <p>
+          如果系统提示无法验证开发者，请先确认下载来源，并遵循“隐私与安全性”中的提示。签名、公证状态以版本说明为准。
+        </p>
+      </li>
+      <li>
+        <span>03</span>
+        <h3>授予所需权限</h3>
+        <p>在系统设置中开启屏幕录制权限。需要录音时，再授予麦克风权限。</p>
+      </li>
+    </ol>
+    <div class="release-notice">
+      <CircleAlert size={21} />
+      <div>
+        <strong data-current-release-title>这是测试预览版。</strong>
+        <p data-current-release-body>
+          当前 CI
+          预发布版本用于体验与反馈，并非已公证的正式发行版。部分受管理设备可能不允许安装。
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="faq-section section">
+    <div class="container faq-grid">
+      <div>
+        <p class="eyebrow">GOOD TO KNOW</p>
+        <h2>你可能想知道。</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>是否支持我的 Mac？</summary>
+          <p>
+            支持 macOS 15 及更新版本。Universal 应用同时包含 Apple Silicon 和
+            Intel 架构，不必分别选择下载。
+          </p>
+        </details>
+        <details>
+          <summary>软件是否开源？</summary>
+          <p>
+            是。MacScreenCapture 采用 MIT 许可证，源码可在{" "}
+            <a href={product.repository}>GitHub 仓库</a>查看。
+          </p>
+        </details>
+        <details>
+          <summary>为什么 macOS 会提示无法验证开发者？</summary>
+          <p>
+            当前下载包仅使用 ad-hoc 签名，尚未进行 Developer ID 正式签名和 Apple
+            公证。请确认下载来源并遵循系统的安全提示。
+          </p>
+        </details>
+        <details>
+          <summary>如何反馈问题或提出建议？</summary>
+          <p>
+            请在 <a href={product.issues}>GitHub Issues</a>中描述 macOS
+            版本、复现步骤和错误信息。提交日志和截图前，请先移除个人信息。
+          </p>
+        </details>
+        <details>
+          <summary>可以下载 ZIP 或查看旧版本吗？</summary>
+          <p>
+            可以。
+            <a
+              href={
+                releaseAsset(product.fallbackRelease, ".zip")
+                  ?.browser_download_url
+              }
+            >
+              下载当前测试版 ZIP
+            </a>
+            ，或在 <a href={product.releases}>Releases</a>{" "}
+            页面查看全部版本与校验和。
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+  <section class="download-section section">
+    <div class="container">
+      <img src={product.icon} alt="" width="68" height="68" />
+      <h2>
+        下一张截图，
+        <br />
+        说得更清楚。
+      </h2>
+      <DownloadButtons />
+      <div class="download-extra">
+        <a href={product.releases} target="_blank" rel="noopener noreferrer">
+          全部版本 <ArrowUpRight size={15} />
+        </a>
+        <a href={product.repository} target="_blank" rel="noopener noreferrer">
+          <Github size={16} />
+          查看源码
+        </a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>

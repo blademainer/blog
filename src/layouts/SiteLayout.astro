@@ -1,0 +1,149 @@
+---
+import { ArrowUpRight, Github, Menu, X, ScanLine } from "lucide-astro";
+import "../styles/global.css";
+const {
+  title = "Blademainer · 独立软件与开发记录",
+  description = "用顺手的软件，解决真实的问题。探索 Blademainer 的开源软件与开发记录。",
+  image = "/assets/capture-main.png",
+  section = "",
+  article = false,
+} = Astro.props;
+const canonical = new URL(
+  Astro.props.canonical || Astro.url.pathname,
+  Astro.site,
+);
+const links = [
+  { label: "软件", href: "/apps/", key: "apps" },
+  { label: "博客", href: "/blog/", key: "blog" },
+  { label: "关于", href: "/about/", key: "about" },
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      href="/atom.xml"
+      title="Blademainer 博客"
+    />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      跳到主要内容
+    </a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Blademainer 首页">
+          <span class="brand-mark">
+            <ScanLine size={21} strokeWidth={2.4} />
+          </span>
+          Blademainer<span class="brand-dot">.</span>
+        </a>
+        <button
+          class="menu-toggle icon-button"
+          aria-label="打开导航"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <Menu class="menu-open-icon" size={24} />
+          <X class="menu-close-icon" size={24} />
+        </button>
+        <nav id="site-nav" aria-label="主导航">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              aria-current={section === link.key ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            class="nav-github"
+            href="https://github.com/blademainer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github size={17} /> GitHub <ArrowUpRight size={14} />
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-top">
+        <div>
+          <a class="brand" href="/">
+            Blademainer<span class="brand-dot">.</span>
+          </a>
+          <p>把想法做成顺手的工具。</p>
+        </div>
+        <div class="footer-links">
+          <a href="/apps/">软件</a>
+          <a href="/blog/">博客</a>
+          <a href="/about/">关于</a>
+          <a
+            href="https://github.com/blademainer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© {new Date().getUTCFullYear()} Blademainer</span>
+        <span>独立开发 · 保持好奇</span>
+        <a
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          粤ICP备15039562号
+        </a>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+      const nav = document.querySelector<HTMLElement>("#site-nav");
+      function closeMenu() {
+        toggle?.setAttribute("aria-expanded", "false");
+        nav?.classList.remove("is-open");
+      }
+      toggle?.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        toggle.setAttribute("aria-expanded", String(open));
+        nav?.classList.toggle("is-open", open);
+      });
+      nav
+        ?.querySelectorAll("a")
+        .forEach((link) => link.addEventListener("click", closeMenu));
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          toggle?.getAttribute("aria-expanded") === "true"
+        ) {
+          closeMenu();
+          toggle.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

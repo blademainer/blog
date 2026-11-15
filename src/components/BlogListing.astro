@@ -1,0 +1,195 @@
+---
+import {
+  Search,
+  ArrowUpRight,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
+} from "lucide-astro";
+const {
+  posts,
+  title = "开发与思考。",
+  description = "关于代码、工具，以及把想法做出来的过程。",
+  eyebrow = "THE NOTEBOOK",
+  page = 1,
+} = Astro.props;
+const categories = [...new Set(posts.flatMap((post) => post.categories))].sort(
+  (a, b) => a.localeCompare(b, "zh-CN"),
+);
+---
+
+<section class="page-intro container blog-intro">
+  <p class="eyebrow">{eyebrow}</p>
+  <h1>{title}</h1>
+  <p>{description}</p>
+</section>
+<section class="container blog-shell" data-blog data-page={page}>
+  <div class="blog-controls">
+    <label class="search-field">
+      <Search size={18} />
+      <span class="sr-only">搜索文章</span>
+      <input
+        type="search"
+        placeholder="搜索标题、内容摘要或标签…"
+        aria-label="搜索文章"
+        autocomplete="off"
+      />
+    </label>
+    <label>
+      <span class="sr-only">筛选分类</span>
+      <select aria-label="筛选分类">
+        <option value="">全部分类</option>
+        {categories.map((category) => (
+          <option value={category}>{category}</option>
+        ))}
+      </select>
+    </label>
+  </div>
+  <div class="blog-status">
+    <span data-result-count aria-live="polite">
+      {posts.length} 篇文章
+    </span>
+    <div>
+      <a href="/archives/">归档</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/tags/">标签</a>
+    </div>
+  </div>
+  <ol class="post-list">
+    {posts.map((post) => (
+      <li
+        class="post-row"
+        data-search={`${post.title} ${post.description} ${post.tags.join(" ")} ${post.categories.join(" ")}`.toLocaleLowerCase()}
+        data-categories={JSON.stringify(post.categories)}
+      >
+        <div class="post-date">
+          <time datetime={post.date}>{post.date}</time>
+          <span class="post-categories">
+            {post.categories.join(" / ") || "随笔"}
+          </span>
+        </div>
+        <div>
+          <h2>
+            <a href={post.url}>{post.title}</a>
+          </h2>
+          <p>{post.description}</p>
+          <div class="post-tags">
+            <span>{post.minutes} 分钟阅读</span>
+            {post.tags.slice(0, 4).map((tag) => (
+              <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
+            ))}
+          </div>
+        </div>
+        <a
+          class="post-arrow"
+          href={post.url}
+          aria-label={`阅读：${post.title}`}
+        >
+          <ArrowUpRight size={22} />
+        </a>
+      </li>
+    ))}
+  </ol>
+  <div class="blog-empty" hidden>
+    <h2>还没有找到这篇文章。</h2>
+    <p>试试其他关键词，或清除筛选。</p>
+    <button class="button button-outline" data-reset>
+      <RotateCcw size={16} />
+      清除筛选
+    </button>
+  </div>
+  <div class="blog-pagination" data-pagination>
+    <button aria-label="上一页" data-prev>
+      <ArrowLeft size={16} />
+    </button>
+    <span data-page-label aria-live="polite"></span>
+    <button aria-label="下一页" data-next>
+      <ArrowRight size={16} />
+    </button>
+  </div>
+</section>
+<script>
+  import { paginationUrl } from "../lib/pagination.mjs";
+  document.querySelectorAll<HTMLElement>("[data-blog]").forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>("input[type=search]")!;
+    const select = root.querySelector<HTMLSelectElement>("select")!;
+    const rows = Array.from(root.querySelectorAll<HTMLElement>(".post-row"));
+    const previous = root.querySelector<HTMLButtonElement>("[data-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-next]")!;
+    const reset = root.querySelector<HTMLButtonElement>("[data-reset]")!;
+    const params = new URLSearchParams(location.search);
+    input.value = params.get("q") || "";
+    if (
+      Array.from(select.options).some(
+        (option) => option.value === params.get("category"),
+      )
+    )
+      select.value = params.get("category") || "";
+    let page = Math.max(
+      1,
+      Number(params.get("page") || root.dataset.page) || 1,
+    );
+    const perPage = 10;
+    function render(updateUrl = false) {
+      const query = input.value.trim().toLocaleLowerCase();
+      const filtered = rows.filter(
+        (row) =>
+          row.dataset.search!.includes(query) &&
+          (!select.value ||
+            JSON.parse(row.dataset.categories!).includes(select.value)),
+      );
+      const pages = Math.max(1, Math.ceil(filtered.length / perPage));
+      page = Math.min(page, pages);
+      const visible = new Set(
+        filtered.slice((page - 1) * perPage, page * perPage),
+      );
+      rows.forEach((row) => {
+        row.hidden = !visible.has(row);
+      });
+      root.querySelector("[data-result-count]")!.textContent =
+        `${filtered.length} 篇文章`;
+      root.querySelector<HTMLElement>(".blog-empty")!.hidden =
+        filtered.length > 0;
+      root.querySelector<HTMLElement>("[data-pagination]")!.hidden = pages <= 1;
+      root.querySelector("[data-page-label]")!.textContent =
+        `${page} / ${pages}`;
+      previous.disabled = page <= 1;
+      next.disabled = page >= pages;
+      if (updateUrl) {
+        const url = paginationUrl(
+          location.href,
+          page,
+          input.value.trim(),
+          select.value,
+        );
+        history.replaceState(null, "", url);
+      }
+    }
+    input.addEventListener("input", () => {
+      page = 1;
+      render(true);
+    });
+    select.addEventListener("change", () => {
+      page = 1;
+      render(true);
+    });
+    reset.addEventListener("click", () => {
+      input.value = "";
+      select.value = "";
+      page = 1;
+      render(true);
+      input.focus();
+    });
+    previous.addEventListener("click", () => {
+      page--;
+      render(true);
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    next.addEventListener("click", () => {
+      page++;
+      render(true);
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    render();
+  });
+</script>

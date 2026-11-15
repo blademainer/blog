@@ -1,0 +1,26 @@
+---
+import { ArrowLeft, Search } from "lucide-astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="页面未找到 · Blademainer">
+  <section class="not-found container">
+    <p class="eyebrow">404 / NOT FOUND</p>
+    <h1>
+      这个页面，
+      <br />
+      暂时没找到。
+    </h1>
+    <p>可以返回首页，或在博客中搜索文章。</p>
+    <div class="button-row">
+      <a class="button button-primary" href="/">
+        <ArrowLeft size={18} />
+        返回首页
+      </a>
+      <a class="button button-outline" href="/blog/">
+        <Search size={18} />
+        搜索博客
+      </a>
+    </div>
+  </section>
+</SiteLayout>

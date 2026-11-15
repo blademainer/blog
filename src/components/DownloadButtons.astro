@@ -1,0 +1,90 @@
+---
+import { Download, ArrowUpRight } from "lucide-astro";
+import { featuredProduct as product } from "../data/products.mjs";
+import { releaseAsset } from "../lib/releases.mjs";
+const { compact = false } = Astro.props;
+const release = product.fallbackRelease;
+---
+
+<div class:list={["download-widget", { compact }]} data-release-widget>
+  <div class="button-row">
+    <a
+      class="button button-primary"
+      data-download="dmg"
+      href={releaseAsset(release, ".dmg")?.browser_download_url}
+    >
+      <Download size={18} />
+      下载 Mac 版<span class="button-platform">.dmg</span>
+    </a>
+    {!compact && (
+      <a
+        class="button button-outline"
+        href="/apps/mac-screen-capture/#installation"
+      >
+        安装说明 <ArrowUpRight size={17} />
+      </a>
+    )}
+  </div>
+  <p class="download-meta">
+    <span data-release-kind>测试预览版</span>
+    <span aria-hidden="true">·</span>macOS 15+<span aria-hidden="true">·</span>
+    Apple Silicon / Intel
+  </p>
+  <p class="download-caution" data-release-warning>
+    当前为 CI 预发布版本，尚未进行 Developer ID 签名和 Apple 公证。
+  </p>
+  <span class="sr-only" data-release-status aria-live="polite"></span>
+</div>
+<script>
+  import { selectRelease, releaseAsset } from "../lib/releases.mjs";
+  async function updateDownloads() {
+    const widgets = document.querySelectorAll<HTMLElement>(
+      "[data-release-widget]",
+    );
+    if (!widgets.length) return;
+    try {
+      const response = await fetch(
+        "https://api.github.com/repos/blademainer/screen-capture/releases?per_page=20",
+        {
+          signal: AbortSignal.timeout(6000),
+          headers: { Accept: "application/vnd.github+json" },
+        },
+      );
+      if (!response.ok) throw new Error("Release lookup failed");
+      const release = selectRelease(await response.json());
+      if (!release) throw new Error("No downloadable release");
+      for (const widget of widgets) {
+        const link = widget.querySelector<HTMLAnchorElement>(
+          '[data-download="dmg"]',
+        );
+        if (link)
+          link.href = releaseAsset(release, ".dmg").browser_download_url;
+        const kind = widget.querySelector("[data-release-kind]");
+        if (kind)
+          kind.textContent = release.prerelease ? "测试预览版" : "正式发布版";
+        const warning = widget.querySelector("[data-release-warning]");
+        if (warning && release.tag_name !== "v1.0.1-ci.20261115.1")
+          warning.textContent = release.prerelease
+            ? "这是预发布版本，请先查看该版本的发布说明与安装要求。"
+            : "安装前请查看对应版本的签名、公证状态与系统要求。";
+        widget.querySelector("[data-release-status]")!.textContent =
+          `可下载版本：${release.tag_name}`;
+      }
+      const noticeTitle = document.querySelector(
+        "[data-current-release-title]",
+      );
+      const noticeBody = document.querySelector("[data-current-release-body]");
+      if (!release.prerelease) {
+        if (noticeTitle) noticeTitle.textContent = "已有正式发布版本。";
+        if (noticeBody)
+          noticeBody.textContent =
+            "下载按钮已指向最新正式发布包。请以该版本的发布说明为准，确认安装要求及签名、公证状态。";
+      }
+    } catch {
+      for (const widget of widgets)
+        widget.querySelector("[data-release-status]")!.textContent =
+          "暂时无法检查新版本，下载链接仍指向已验证的版本。";
+    }
+  }
+  updateDownloads();
+</script>

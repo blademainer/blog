@@ -1,0 +1,62 @@
+---
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-astro";
+const { post } = Astro.props;
+---
+
+<article>
+  <header class="article-header">
+    <a class="article-back" href="/blog/">
+      <ArrowLeft size={15} />
+      返回博客
+    </a>
+    <h1>{post.title}</h1>
+    <div class="article-meta">
+      <time datetime={post.date}>{post.date}</time>
+      {post.updated !== post.date && <span>更新于 {post.updated}</span>}
+      <span>{post.minutes} 分钟阅读</span>
+      {post.categories.map((category) => (
+        <a href={`/categories/${encodeURIComponent(category)}/`}>{category}</a>
+      ))}
+    </div>
+  </header>
+  <div class="article-content">
+    {post.headings.length > 3 && (
+      <details class="toc">
+        <summary>文章目录</summary>
+        <ol>
+          {post.headings
+            .filter((heading) => heading.depth <= 3)
+            .map((heading) => (
+              <li>
+                <a href={`#${heading.id}`}>{heading.text}</a>
+              </li>
+            ))}
+        </ol>
+      </details>
+    )}
+    <div class="prose" set:html={post.html} />
+    <div class="article-footer">
+      <div class="post-tags">
+        {post.tags.map((tag) => (
+          <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>
+        ))}
+      </div>
+    </div>
+    <section class="article-discussion" aria-label="文章讨论">
+      <h2>继续聊聊。</h2>
+      <p>历史评论保留在原来的 GitHub 讨论中。欢迎补充、提问或分享你的经验。</p>
+      <a
+        class="button button-outline"
+        href={
+          post.discussionUrl ||
+          "https://github.com/blademainer/blademainer.github.com/issues"
+        }
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Github size={18} />
+        查看评论与参与讨论 <ArrowUpRight size={16} />
+      </a>
+    </section>
+  </div>
+</article>

@@ -1,0 +1,55 @@
+---
+import { Github, ArrowUpRight, Code2, BookOpen } from "lucide-astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="关于 · Blademainer" section="about">
+  <section class="page-intro container about-intro">
+    <p class="eyebrow">HELLO, I'M BLADEMAINER.</p>
+    <h1>
+      保持好奇，
+      <br />
+      动手解决问题。
+    </h1>
+    <p>
+      开发软件，也记录开发过程。
+      <br />
+      这里收集那些从真实需求里长出来的小工具与思考。
+    </p>
+  </section>
+  <section class="container about-body">
+    <div class="about-monogram" aria-hidden="true">
+      B<span>.</span>
+    </div>
+    <div>
+      <h2>从问题出发。</h2>
+      <p>
+        我是
+        Blademainer，一名开发者。这里既是软件的展示空间，也是持续积累的开发记录。
+      </p>
+      <p>
+        博客里的文章涉及
+        Java、Go、支付系统、容器和架构；软件则聚焦于具体的日常需求。MacScreenCapture
+        是目前主推的开源屏幕工具。
+      </p>
+      <p>
+        工具会迭代，想法会更新。代码与文章都留在这里，欢迎交流，也欢迎一起改进。
+      </p>
+      <div class="button-row">
+        <a
+          class="button button-primary"
+          href="https://github.com/blademainer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Github size={18} />
+          GitHub <ArrowUpRight size={16} />
+        </a>
+        <a class="button button-outline" href="/blog/">
+          <BookOpen size={18} />
+          阅读博客
+        </a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>

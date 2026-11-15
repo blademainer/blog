@@ -1,0 +1,75 @@
+---
+import { ArrowUpRight, Github } from "lucide-astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { products } from "../../data/products.mjs";
+---
+
+<SiteLayout
+  title="软件 · Blademainer"
+  section="apps"
+  description="探索 Blademainer 的开源软件，从 MacScreenCapture 开始。"
+>
+  <section class="page-intro container">
+    <p class="eyebrow">MADE BY BLADEMAINER</p>
+    <h1>
+      小工具，
+      <br />
+      解决真实的问题。
+    </h1>
+    <p>独立开发，开放源码。找到适合你工作流的那一个。</p>
+  </section>
+  <section class="container product-directory">
+    {products.map((product) => (
+      <article class="directory-product">
+        <div class="directory-product-copy">
+          <img
+            class="product-icon"
+            src={product.icon}
+            width="76"
+            height="76"
+            alt={product.name + " 应用图标"}
+          />
+          <p class="eyebrow">
+            {product.category} / {product.platform}
+          </p>
+          <h2>
+            <a href={`/apps/${product.slug}/`}>{product.name}</a>
+          </h2>
+          <p>{product.description}</p>
+          <div class="pill-row">
+            {product.labels.map((label) => (
+              <span>{label}</span>
+            ))}
+          </div>
+          <div class="button-row">
+            <a class="button button-primary" href={`/apps/${product.slug}/`}>
+              了解软件 <ArrowUpRight size={18} />
+            </a>
+            <a
+              class="icon-button"
+              href={product.repository}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={"查看 " + product.name + " 源码"}
+              title="GitHub 源码"
+            >
+              <Github size={22} />
+            </a>
+          </div>
+        </div>
+        <a
+          class="directory-product-image"
+          href={`/apps/${product.slug}/`}
+          aria-label={"了解 " + product.name}
+        >
+          <img
+            src={product.screenshot}
+            alt={product.name + " 真实界面"}
+            width="1200"
+            height="904"
+          />
+        </a>
+      </article>
+    ))}
+  </section>
+</SiteLayout>
