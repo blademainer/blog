@@ -68,4 +68,10 @@ node scripts/import-legacy-compat.mjs
 
 `.github/workflows/build.yml` 运行完整检查并提供站点构建产物，不会自动覆盖线上网站。原 Travis 仅保留构建检查，移除了旧 Hexo、七牛和自动推送操作。
 
-首次上线需在预览确认后，把 `dist/` 发布到原 `blademainer/blademainer.github.com` 仓库，或将 `deployment/github-pages.yml` 安装到该仓库并启用 GitHub Pages 的 Actions 发布方式。后者直接读取此源码仓库，避免跨仓库写入 token；源码推送与域名切换必须在确认预览后执行。不要运行旧 Hexo 部署脚本。
+网站已通过原 `blademainer/blademainer.github.com` 仓库中的 `astro-pages.yml` 发布，仍使用原域名。发布工作流读取本源码仓库中指定的提交，避免跨仓库写入 token。源码推送会先自动检查；检查和预览确认后可手动发布：
+
+```bash
+gh workflow run astro-pages.yml --repo blademainer/blademainer.github.com -f source_ref=<已审核的源码提交SHA>
+```
+
+`deployment/github-pages.yml` 是该发布配置的源码副本。不要运行旧 Hexo 部署脚本。回滚时可重新发布先前审核通过的源码提交；原静态仓库内容仍保留在 Git 历史及原发布分支中。

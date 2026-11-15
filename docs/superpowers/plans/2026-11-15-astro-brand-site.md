@@ -22,7 +22,7 @@
 - [x] Build homepage, product directory, product page, about, blog, archive, taxonomy pages, feed and sitemap.
 - [x] Add a GitHub Actions build check and document the deployment handoff to the existing Pages repository.
 - [x] Run unit/build/link checks, desktop/mobile browser tests and visual inspection; obtain an independent review and resolve important findings.
-- [ ] After the user's publication approval, commit and push the source and Pages workflow, deploy to the existing domain, and verify the live website in the built-in browser.
+- [x] After the user's publication approval, commit and push the source and Pages workflow, deploy to the existing domain, and verify the live website in the built-in browser.
 
 ## Review Focus
 

@@ -19,3 +19,14 @@ No native-app automation was used after the user's instruction to use the built-
 - Product: directory navigation, FAQ expansion, installation links, explicit prerelease label and verified DMG link checked.
 
 Browser-only screenshots are kept locally in the ignored `artifacts/qa/` directory. Publication and live-domain checks are recorded after deployment.
+
+## Publication
+
+- Source commit `c2854e1` passed [GitHub CI](https://github.com/blademainer/blog/actions/runs/43714692680).
+- The existing deployment repository received workflow commit `9c2c78f`. [Initial Pages deployment](https://github.com/blademainer/blademainer.github.com/actions/runs/43714756897) succeeded, retaining `xiongyingqi.com` and enforced HTTPS. No DNS records changed.
+- The public homepage now displays MacScreenCapture. The built-in browser verified the live blog search (two payment articles), an original article and its issue #21 discussion, and the historical `energy-equation` tag page.
+- Real-time GitHub version lookup was unavailable in this browser; the explicit prerelease label and already-verified DMG fallback remained functional. This is an observed fallback, not proof of a successful live API lookup.
+
+## Dependency Audit
+
+`npm audit fix --omit=dev` applied the nonbreaking fix available for `debug`. The remaining report is 7 findings (4 low, 3 moderate; no high or critical). These involve the build-time math and stylesheet toolchain. No `--force` overrides or unreviewed major-version substitutions were applied. The site serves static output; this audit is not a claim that every existing independent game dependency has been remediated.
