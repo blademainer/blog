@@ -20,6 +20,13 @@ No native-app automation was used after the user's instruction to use the built-
 
 Browser-only screenshots are kept locally in the ignored `artifacts/qa/` directory. Publication and live-domain checks are recorded after deployment.
 
+## Blue Theme
+
+- Replaced the default green branding with blue `#2563eb`, a darker hover state, white surfaces, and neutral grays. Buttons, navigation, search focus, article links, quotes, and the favicon share the new palette. Installation warnings retain an amber accent; application screenshots are unchanged.
+- Added three theme regression tests, including WCAG AA normal-text contrast checks for the primary button and selected text pairs. All 23 tests passed; the static build and local-link checks still verified 253 HTML files and 47 articles. The existing duplicate `/404` route warning remains nonfatal.
+- Built-in browser checks: 1280-pixel desktop homepage, 390-pixel mobile homepage, 320-pixel homepage and product page; no horizontal overflow. Blog search returned two payment articles; active navigation and search focus were blue. Mobile navigation opened and closed with Escape; product images loaded and the prerelease DMG fallback remained intact.
+- This changes the default light palette, not a new dark-mode or theme-switching feature. Historical routes, blog content, and the independent game are unchanged.
+
 ## Publication
 
 - Source commit `c2854e1` passed [GitHub CI](https://github.com/blademainer/blog/actions/runs/43714692680).
