@@ -140,6 +140,14 @@ symbols_count_time:
 #theme: landscape
 theme: next
 
+# Site-specific NexT overrides; keep the theme submodule unchanged.
+theme_config:
+  # Disable the entire blogroll, including the links inherited from the theme.
+  links: false
+  menu_settings:
+    # Serve the original background locally so HTTPS does not depend on the old CDN.
+    background_image: /images/header-background.jpg
+
 archive_generator:
   per_page: 0
   yearly: false
